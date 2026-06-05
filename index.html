@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bientôt disponible | Fondation Honorer Aimer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ha: {
+                            dark: '#3D4A3A',
+                            muted: '#7A8C6E',
+                            sage: '#B5A88A',
+                            cream: '#F0EBE4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F0EBE4; }
+        
+        /* Animations d'apparition douces */
+        .fade-in { 
+            animation: fadeIn 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; 
+            opacity: 0; 
+            transform: translateY(20px);
+        }
+        .delay-1 { animation-delay: 0.4s; }
+        .delay-2 { animation-delay: 0.8s; }
+        
+        @keyframes fadeIn { 
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            } 
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-ha-dark min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-6">
+    
+    <!-- Arrière-plan subtil inspiré du moodboard -->
+    <div class="absolute inset-0 z-0 opacity-[0.15] mix-blend-multiply pointer-events-none">
+        <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=80&w=2541&auto=format&fit=crop" class="w-full h-full object-cover scale-105" alt="Nature brumeuse">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#F0EBE4] via-transparent to-[#F0EBE4]"></div>
+    </div>
+
+    <!-- Contenu central -->
+    <div class="relative z-10 text-center max-w-2xl mx-auto w-full">
+        
+        <div class="fade-in mb-12">
+            <span class="block text-xs font-medium tracking-[0.3em] uppercase text-ha-muted mb-6">Fondation</span>
+            <h1 class="font-serif text-5xl md:text-7xl font-medium tracking-wide text-ha-dark">
+                Honorer <span class="italic font-light text-ha-muted">Aimer</span>
+            </h1>
+        </div>
+        
+        <div class="fade-in delay-1 mb-16">
+            <div class="w-16 h-px bg-ha-sage mx-auto mb-10"></div>
+            <h2 class="font-serif text-3xl md:text-4xl mb-6 text-ha-dark">Vivre le deuil autrement.</h2>
+            <p class="font-light text-lg text-ha-dark/70 leading-relaxed max-w-lg mx-auto">
+                Nous préparons actuellement un espace profondément humain pour vous accompagner. Notre plateforme sera disponible très bientôt.
+            </p>
+        </div>
+
+        <div class="fade-in delay-2 border-t border-ha-dark/10 pt-10">
+            <p class="text-sm font-light text-ha-dark/60 mb-4">Pour toute question ou demande d'information :</p>
+            <a href="mailto:bonjour@fondationha.com" class="inline-block text-sm md:text-base font-medium tracking-widest uppercase text-ha-dark hover:text-ha-muted transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:h-px after:bg-ha-muted after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left pb-1">
+                bonjour@fondationha.com
+            </a>
+        </div>
+        
+    </div>
+</body>
+</html>
