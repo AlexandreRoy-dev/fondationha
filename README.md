@@ -12,6 +12,14 @@ Site web statique de la [Fondation Honorer Aimer](https://fondationha.com) — *
 
 ```
 ├── index.html
+├── mission.html
+├── approche.html
+├── a-propos.html
+├── conseil.html
+├── dons.html
+├── 404.html
+├── sitemap.xml
+├── robots.txt
 ├── css/
 │   ├── tokens.css
 │   └── styles.css
@@ -50,7 +58,7 @@ Le site utilise un **Payment Link** Stripe (page de paiement hébergée). Aucune
 3. Produit : `Don — Fondation Honorer Aimer`
 4. Prix : **Customer chooses what to pay** (montant libre)
 5. Devise : **CAD**
-6. (Optionnel) After payment → redirect vers `https://fondationha.com/?don=merci` pour afficher le bandeau de remerciement
+6. (Optionnel) After payment → redirect vers `https://fondationha.com/dons.html?don=merci` pour afficher le bandeau de remerciement
 7. Copier l’URL (`https://buy.stripe.com/...`)
 
 ### Brancher le lien dans le site
@@ -75,7 +83,7 @@ Tant que la constante est vide, les boutons « Faire un don » ouvrent un courri
 Les cartes du CA utilisent pour l’instant des monogrammes. Pour ajouter les photos :
 
 1. Déposer les fichiers dans `assets/images/board/` (ex. `dominique-st-jean.jpg`)
-2. Remplacer le `<div class="board-card__avatar">` par un `<img>` dans `index.html`
+2. Remplacer le `<div class="board-card__avatar">` par un `<img>` dans `conseil.html`
 
 ## Contact
 

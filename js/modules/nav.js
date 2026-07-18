@@ -2,7 +2,7 @@ export function initNav() {
   const header = document.querySelector(".site-header");
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.querySelector(".site-nav");
-  const links = nav ? nav.querySelectorAll("a[href^='#']") : [];
+  const links = nav ? nav.querySelectorAll("a") : [];
 
   if (!header || !toggle || !nav) return;
 
@@ -32,7 +32,16 @@ export function initNav() {
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  // Highlight current section in nav
+  const currentPage = document.body.dataset.page;
+  if (currentPage) {
+    links.forEach((link) => {
+      if (link.dataset.page === currentPage) {
+        link.setAttribute("aria-current", "page");
+      }
+    });
+  }
+
+  // Keep section highlighting available for in-page navigation.
   const sections = [...document.querySelectorAll("main section[id]")];
   if (!sections.length || !("IntersectionObserver" in window)) return;
 
@@ -43,8 +52,10 @@ export function initNav() {
         const id = entry.target.id;
         links.forEach((link) => {
           const match = link.getAttribute("href") === `#${id}`;
-          if (match) link.setAttribute("aria-current", "true");
-          else link.removeAttribute("aria-current");
+          if (match) link.setAttribute("aria-current", "location");
+          else if (link.getAttribute("aria-current") === "location") {
+            link.removeAttribute("aria-current");
+          }
         });
       });
     },
