@@ -1,84 +1,345 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bientôt disponible | Fondation Honorer Aimer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        ha: {
-                            dark: '#3D4A3A',
-                            muted: '#7A8C6E',
-                            sage: '#B5A88A',
-                            cream: '#F0EBE4'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body { background-color: #F0EBE4; }
-        
-        /* Animations d'apparition douces */
-        .fade-in { 
-            animation: fadeIn 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; 
-            opacity: 0; 
-            transform: translateY(20px);
-        }
-        .delay-1 { animation-delay: 0.4s; }
-        .delay-2 { animation-delay: 0.8s; }
-        
-        @keyframes fadeIn { 
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            } 
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fondation Honorer Aimer — Ensemble, vivons le deuil autrement</title>
+  <meta name="description" content="La Fondation Honorer Aimer crée des espaces, des repères et des outils pour vivre le deuil autrement. Ensemble, ralentir, respirer, continuer.">
+  <meta name="theme-color" content="#3D4A3A">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_CA">
+  <meta property="og:title" content="Fondation Honorer Aimer">
+  <meta property="og:description" content="Ensemble, vivons le deuil autrement. Des espaces profondément humains pour les personnes endeuillées au Québec.">
+  <meta property="og:image" content="assets/images/logo.png">
+  <meta property="og:url" content="https://fondationha.com">
+
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="font-sans antialiased text-ha-dark min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-6">
-    
-    <!-- Arrière-plan subtil inspiré du moodboard -->
-    <div class="absolute inset-0 z-0 opacity-[0.15] mix-blend-multiply pointer-events-none">
-        <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=80&w=2541&auto=format&fit=crop" class="w-full h-full object-cover scale-105" alt="Nature brumeuse">
-        <div class="absolute inset-0 bg-gradient-to-t from-[#F0EBE4] via-transparent to-[#F0EBE4]"></div>
-    </div>
+<body>
+  <a class="sr-only" href="#contenu">Aller au contenu</a>
 
-    <!-- Contenu central -->
-    <div class="relative z-10 text-center max-w-2xl mx-auto w-full">
-        
-        <div class="fade-in mb-12">
-            <span class="block text-xs font-medium tracking-[0.3em] uppercase text-ha-muted mb-6">Fondation</span>
-            <h1 class="font-serif text-5xl md:text-7xl font-medium tracking-wide text-ha-dark">
-                Honorer <span class="italic font-light text-ha-muted">Aimer</span>
-            </h1>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="#accueil" aria-label="Fondation Honorer Aimer — Accueil">
+        <img src="assets/images/logo.png" alt="Fondation Honorer Aimer" width="160" height="72">
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navigation" aria-label="Ouvrir le menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="navigation" aria-label="Navigation principale">
+        <ul class="site-nav__list">
+          <li><a href="#mission">Mission</a></li>
+          <li><a href="#approche">Approche</a></li>
+          <li><a href="#a-propos">À propos</a></li>
+          <li><a href="#conseil">Conseil</a></li>
+          <li><a href="#dons">Dons</a></li>
+        </ul>
+        <div class="site-nav__cta">
+          <a class="btn btn--primary" href="#dons" data-donate>Faire un don</a>
         </div>
-        
-        <div class="fade-in delay-1 mb-16">
-            <div class="w-16 h-px bg-ha-sage mx-auto mb-10"></div>
-            <h2 class="font-serif text-3xl md:text-4xl mb-6 text-ha-dark">Vivre le deuil autrement.</h2>
-            <p class="font-light text-lg text-ha-dark/70 leading-relaxed max-w-lg mx-auto">
-                Nous préparons actuellement un espace profondément humain pour vous accompagner. Notre plateforme sera disponible très bientôt.
+      </nav>
+
+      <a class="btn btn--primary header-cta" href="#dons" data-donate>Faire un don</a>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <!-- Hero -->
+    <section class="hero" id="accueil" aria-labelledby="hero-title">
+      <div class="hero__bg" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=80&w=2000&auto=format&fit=crop"
+          alt=""
+          width="2000"
+          height="1333"
+          fetchpriority="high"
+        >
+      </div>
+      <div class="container hero__content reveal">
+        <p class="hero__eyebrow">Fondation Honorer Aimer</p>
+        <h1 class="hero__title" id="hero-title">Ensemble, <em>vivons le deuil autrement</em></h1>
+        <p class="hero__text">
+          Des espaces profondément humains pour ralentir, se déposer et se sentir moins seul·e dans ce que l’on traverse.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="#dons" data-donate>Faire un don</a>
+          <a class="btn btn--secondary" href="#mission">Découvrir la fondation</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="section" id="mission" aria-labelledby="mission-title">
+      <div class="container">
+        <div class="reveal">
+          <span class="section__label">Notre raison d’être</span>
+          <h2 class="section__title" id="mission-title">Mission &amp; vision</h2>
+        </div>
+
+        <div class="split-grid">
+          <article class="panel reveal">
+            <h3>Mission</h3>
+            <p>
+              Faire évoluer la place du deuil dans notre société en créant des espaces, des repères et des outils afin que le départ d’un proche puisse doucement ouvrir un chemin d’amour vers soi.
             </p>
+          </article>
+          <article class="panel reveal">
+            <h3>Vision</h3>
+            <p>
+              Contribuer à transformer la façon dont le deuil est vécu et accompagné au Québec.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Approche -->
+    <section class="section section--alt" id="approche" aria-labelledby="approche-title">
+      <div class="container">
+        <div class="approach-intro reveal">
+          <span class="section__label">Ce que nous créons</span>
+          <h2 class="section__title" id="approche-title">Comment nous réaliserons notre mission</h2>
+          <p class="section__lead">
+            La Fondation Honorer Aimer réalisera sa mission en créant des espaces profondément humains où les personnes endeuillées pourront ralentir, se déposer, reconnecter avec elles-mêmes et se sentir moins seules dans ce qu’elles traversent.
+          </p>
         </div>
 
-        <div class="fade-in delay-2 border-t border-ha-dark/10 pt-10">
-            <p class="text-sm font-light text-ha-dark/60 mb-4">Pour toute question ou demande d'information :</p>
-            <a href="mailto:bonjour@fondationha.com" class="inline-block text-sm md:text-base font-medium tracking-widest uppercase text-ha-dark hover:text-ha-muted transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:h-px after:bg-ha-muted after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left pb-1">
-                bonjour@fondationha.com
-            </a>
+        <div class="card-grid">
+          <article class="card reveal">
+            <svg class="card__icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <path d="M6 22c4-8 16-8 20 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M16 8v10M12 14h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <h3>Séjours de ressourcement</h3>
+            <p>Des moments pour ralentir, respirer et se déposer hors du quotidien.</p>
+          </article>
+          <article class="card reveal">
+            <svg class="card__icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <circle cx="11" cy="14" r="3" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="21" cy="14" r="3" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M6 24c1.5-3 4-4.5 5-4.5S14.5 21 16 24c1.5-3 4-4.5 5-4.5S24.5 21 26 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <h3>Activités de groupe</h3>
+            <p>Des rencontres qui favorisent la connexion humaine et l’accueil des émotions.</p>
+          </article>
+          <article class="card reveal">
+            <svg class="card__icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <rect x="7" y="9" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M11 15h10M11 19h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <h3>Conférences &amp; ateliers</h3>
+            <p>Des outils de mieux-être accessibles, en présentiel ou en virtuel.</p>
+          </article>
+          <article class="card reveal">
+            <svg class="card__icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <path d="M16 7c-3 4-7 6.5-7 11a7 7 0 0 0 14 0c0-4.5-4-7-7-11Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            <h3>Pratiques douces</h3>
+            <p>Respiration consciente, méditation, mouvement et échanges humains.</p>
+          </article>
         </div>
-        
+
+        <p class="approach-note reveal">
+          La fondation souhaite rendre ces expériences accessibles grâce à des activités à faible coût ou gratuites, afin que le soutien au deuil puisse être offert avec plus d’humanité, d’ouverture et de bienveillance. Parce qu’au fond, personne ne devrait avoir à traverser le deuil seul.
+        </p>
+      </div>
+    </section>
+
+    <!-- À propos -->
+    <section class="section" id="a-propos" aria-labelledby="apropos-title">
+      <div class="container">
+        <div class="reveal">
+          <span class="section__label">Notre histoire</span>
+          <h2 class="section__title" id="apropos-title">À propos de la Fondation Honorer Aimer</h2>
+        </div>
+
+        <div class="about-layout">
+          <div class="about-prose reveal">
+            <p>
+              La Fondation Honorer Aimer est née d’un constat profondément humain&nbsp;: trop de personnes traversent le deuil dans l’isolement.
+            </p>
+            <p>
+              Après une perte, plusieurs cherchent un espace pour ralentir, respirer et simplement être accueillis dans ce qu’ils vivent. Pourtant, les lieux profondément humains, doux et accessibles demeurent rares.
+            </p>
+            <p>
+              C’est à travers sa propre expérience du deuil que la fondatrice a ressenti ce manque. Lorsqu’elle a perdu son frère soudainement en 2020, elle a cherché de l’aide, mais les portes se refermaient. En congé parental et sans assurances pour couvrir des séances de psychothérapie, les ressources accessibles étaient limitées. Elle a aussi cherché des séjours et des espaces dédiés aux personnes endeuillées, sans succès.
+            </p>
+            <p>
+              C’est finalement à travers sa pratique du yoga qu’elle a trouvé un espace de respiration et de reconnexion. Elle a ensuite rencontré Cynthia J. Brunelle, thanadoula, avec qui le lien a été instantané.
+            </p>
+            <p>
+              Ensemble, elles ont commencé cette mission en créant un programme de yoga pour le deuil ainsi que des ateliers virtuels destinés aux personnes endeuillées. De cette expérience est née la volonté de créer Honorer Aimer.
+            </p>
+            <p>
+              Un mouvement porté par la compassion, la présence et la connexion humaine. Un espace pour vivre le deuil autrement. Parce qu’au fond, personne ne devrait avoir à traverser la douleur seul.
+            </p>
+          </div>
+
+          <aside class="about-aside reveal">
+            <img
+              src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=1200&auto=format&fit=crop"
+              alt="Mains tenant une jeune pousse, symbole de renaissance et de douceur"
+              width="1200"
+              height="1500"
+              loading="lazy"
+            >
+            <p class="about-aside__caption">Un mouvement porté par la compassion, la présence et la connexion humaine.</p>
+          </aside>
+        </div>
+
+        <p class="closing-lines reveal">
+          <span>Un espace pour ralentir ensemble.</span>
+          <span>Respirer ensemble.</span>
+          <span>Continuer ensemble.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Conseil d'administration -->
+    <section class="section section--alt" id="conseil" aria-labelledby="conseil-title">
+      <div class="container">
+        <div class="reveal">
+          <span class="section__label">Gouvernance</span>
+          <h2 class="section__title" id="conseil-title">Conseil d’administration</h2>
+          <p class="section__lead">
+            Une équipe engagée à briser l’isolement et à veiller à la santé mentale des personnes qui traversent le deuil.
+          </p>
+        </div>
+
+        <ul class="board-grid">
+          <li class="board-card reveal">
+            <div class="board-card__avatar" aria-hidden="true">DS</div>
+            <h3>Dominique St-Jean</h3>
+            <p>Présidente</p>
+          </li>
+          <li class="board-card reveal">
+            <div class="board-card__avatar" aria-hidden="true">MG</div>
+            <h3>Marie-Eve Gagnon</h3>
+            <p>Vice-présidente</p>
+          </li>
+          <li class="board-card reveal">
+            <div class="board-card__avatar" aria-hidden="true">CB</div>
+            <h3>Cynthia J. Brunelle</h3>
+            <p>Secrétaire</p>
+          </li>
+          <li class="board-card reveal">
+            <div class="board-card__avatar" aria-hidden="true">AR</div>
+            <h3>Anne Rhéaume</h3>
+            <p>Trésorière</p>
+          </li>
+          <li class="board-card reveal">
+            <div class="board-card__avatar" aria-hidden="true">SG</div>
+            <h3>Sandra Gallant</h3>
+            <p>Administratrice</p>
+          </li>
+          <li class="board-card reveal">
+            <div class="board-card__avatar" aria-hidden="true">JL</div>
+            <h3>Joanie Langelier</h3>
+            <p>Administratrice</p>
+          </li>
+          <li class="board-card reveal">
+            <div class="board-card__avatar" aria-hidden="true">MF</div>
+            <h3>Melissa Filion</h3>
+            <p>Administratrice</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Dons / Rejoindre le mouvement -->
+    <section class="section section--dark" id="dons" aria-labelledby="dons-title">
+      <div class="container donate-layout">
+        <div class="reveal">
+          <span class="section__label">Soutenir</span>
+          <h2 class="section__title" id="dons-title">Rejoindre le mouvement</h2>
+          <p class="section__lead">
+            La Fondation Honorer Aimer est née du désir de briser l’isolement et de veiller à la santé mentale des personnes qui traversent le deuil, la perte et les périodes les plus difficiles de la vie.
+          </p>
+          <hr class="divider">
+          <p class="section__lead">
+            Nous croyons profondément que chaque humain mérite d’avoir accès à des espaces de soutien, de connexion et de mieux-être, peu importe sa situation financière. C’est pourquoi nous souhaitons offrir des expériences humaines accessibles, des activités à faible coût et, lorsque possible, gratuites.
+          </p>
+          <p class="section__lead section__lead--spaced">
+            Chaque contribution aide à créer davantage d’espaces pour ralentir, respirer, être accueilli et se sentir moins seul. Parce qu’au fond, être entouré peut tout changer.
+          </p>
+        </div>
+
+        <div class="donate-card reveal">
+          <h3 class="donate-card__title">Faire un don</h3>
+          <p>
+            Votre don soutient des séjours, des ateliers et des outils accessibles pour les personnes endeuillées.
+          </p>
+          <a class="btn btn--on-dark" href="mailto:bonjour@fondationha.com" data-donate>
+            Faire un don
+          </a>
+          <p class="donate-card__note">
+            Paiement sécurisé via Stripe. Un reçu vous sera transmis selon les modalités de la fondation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Merci (shown when ?don=merci) -->
+    <section class="merci" id="merci" hidden aria-labelledby="merci-title">
+      <div class="container">
+        <h2 id="merci-title">Merci du fond du cœur</h2>
+        <p>
+          Votre générosité contribue à créer des espaces pour ralentir, respirer et se sentir moins seul. Ensemble, vivons le deuil autrement.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/images/logo-light.png" alt="Fondation Honorer Aimer" width="160" height="72">
+          <p>Ensemble, vivons le deuil autrement.</p>
+        </div>
+
+        <div>
+          <p class="footer__heading">Explorer</p>
+          <ul class="footer__links">
+            <li><a href="#mission">Mission &amp; vision</a></li>
+            <li><a href="#approche">Notre approche</a></li>
+            <li><a href="#a-propos">À propos</a></li>
+            <li><a href="#conseil">Conseil d’administration</a></li>
+            <li><a href="#dons">Faire un don</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer__heading">Contact</p>
+          <ul class="footer__links">
+            <li>
+              <a href="mailto:bonjour@fondationha.com">bonjour@fondationha.com</a>
+            </li>
+            <li>Québec, Canada</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>© <span id="year">2026</span> Fondation Honorer Aimer. Tous droits réservés.</p>
+        <p>Site conçu avec présence et douceur.</p>
+      </div>
     </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+  <script>
+    document.getElementById("year").textContent = String(new Date().getFullYear());
+  </script>
 </body>
 </html>
