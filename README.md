@@ -1,6 +1,6 @@
 # Fondation Honorer Aimer
 
-Site web statique de la [Fondation Honorer Aimer](https://fondationha.com) — *Ensemble, vivons le deuil autrement*.
+Site web statique de la [Fondation Honorer Aimer](https://fondationha.com) - *Ensemble, vivons le deuil autrement*.
 
 ## Stack
 
@@ -47,7 +47,7 @@ npx serve .
 
 Puis ouvrir `http://localhost:8080`.
 
-## Stripe — bouton « Faire un don »
+## Stripe - bouton « Faire un don »
 
 Le site utilise un **Payment Link** Stripe (page de paiement hébergée). Aucune clé secrète n’est exposée dans le navigateur.
 
@@ -55,7 +55,7 @@ Le site utilise un **Payment Link** Stripe (page de paiement hébergée). Aucune
 
 1. Se connecter au [Stripe Dashboard](https://dashboard.stripe.com/)
 2. **Payment Links** → **New**
-3. Produit : `Don — Fondation Honorer Aimer`
+3. Produit : `Don - Fondation Honorer Aimer`
 4. Prix : **Customer chooses what to pay** (montant libre)
 5. Devise : **CAD**
 6. (Optionnel) After payment → redirect vers `https://fondationha.com/dons.html?don=merci` pour afficher le bandeau de remerciement

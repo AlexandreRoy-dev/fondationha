@@ -1,9 +1,9 @@
 /**
- * Site configuration — Fondation Honorer Aimer
+ * Site configuration - Fondation Honorer Aimer
  *
  * STRIPE PAYMENT LINK:
  * 1. In Stripe Dashboard → Payment Links → Create
- * 2. Product: "Don — Fondation Honorer Aimer"
+ * 2. Product: "Don - Fondation Honorer Aimer"
  * 3. Price: Customer chooses amount, currency CAD
  * 4. Paste the URL below (e.g. https://buy.stripe.com/...)
  *
