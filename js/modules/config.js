@@ -2,12 +2,12 @@
  * Site configuration - Fondation Honorer Aimer
  *
  * One live Stripe Payment Link (CAD, montant libre) for all donations.
- * Suggested amounts on the site are UX only — the donor confirms the amount on Stripe.
+ * Suggested amounts on the site are UX only; the donor confirms the amount on Stripe.
  */
 export const STRIPE_PAYMENT_LINK =
   "https://donate.stripe.com/dRmdRafleac58QTakc8Ra00";
 
-/** @deprecated Use STRIPE_PAYMENT_LINK — kept so older imports keep working */
+/** @deprecated Use STRIPE_PAYMENT_LINK; kept so older imports keep working */
 export const STRIPE_DONATE_LINKS = {
   custom: STRIPE_PAYMENT_LINK,
 };
@@ -21,7 +21,6 @@ export const DONATE_MAILTO =
 
 export const CONTACT_EMAIL = "bonjour@fondationha.com";
 
-/** Lancement officiel — billetterie Zeffy */
+/** Lancement officiel: billetterie Zeffy */
 export const EVENT_LAUNCH_URL =
   "https://www.zeffy.com/en-CA/ticketing/ensemble-lancement-de-la-fondation-honorer-aimer";
-

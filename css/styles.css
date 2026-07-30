@@ -323,7 +323,7 @@ ul {
   top: 0;
   z-index: 100;
   height: var(--header-h);
-  /* Keep blur on a layer — backdrop-filter on the header itself
+  /* Keep blur on a layer: backdrop-filter on the header itself
      creates a containing block that collapses the fixed mobile nav. */
   background: transparent;
   border-bottom: 1px solid transparent;
@@ -369,8 +369,9 @@ ul {
 }
 
 .logo img {
-  height: 2.75rem;
+  height: 4.25rem;
   width: auto;
+  display: block;
 }
 
 .nav-toggle {
@@ -1029,7 +1030,7 @@ ul {
 }
 
 .footer__brand img {
-  height: 3.25rem;
+  height: 4rem;
   width: auto;
   margin-bottom: var(--space-4);
 }

@@ -55,7 +55,7 @@ URL live dans [`js/modules/config.js`](js/modules/config.js) (`STRIPE_PAYMENT_LI
 
 Après paiement, Stripe redirige vers `dons.html?don=merci`.
 
-Aucune clé secrète n’est dans le site — seulement l’URL publique `donate.stripe.com/...`.
+Aucune clé secrète n’est dans le site; seulement l’URL publique `donate.stripe.com/...`.
 
 ## Déploiement GitHub Pages
 
