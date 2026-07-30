@@ -16,14 +16,38 @@
   <header class="site-header"><div class="container site-header__inner">
     <a class="logo" href="index.html" aria-label="Fondation Honorer Aimer - Accueil"><img src="assets/images/logo.png" alt="Fondation Honorer Aimer" width="160" height="72"></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navigation" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
-    <nav class="site-nav" id="navigation" aria-label="Navigation principale"><ul class="site-nav__list"><li><a href="index.html" data-page="accueil">Accueil</a></li><li><a href="mission.html" data-page="mission">Mission</a></li><li><a href="approche.html" data-page="approche">Approche</a></li><li><a href="a-propos.html" data-page="a-propos">À propos</a></li><li><a href="conseil.html" data-page="conseil">Conseil</a></li><li><a href="dons.html" data-page="dons">Dons</a></li></ul><div class="site-nav__cta"><a class="btn btn--primary" href="#faire-un-don" data-donate>Faire un don</a></div></nav>
-    <a class="btn btn--primary header-cta" href="#faire-un-don" data-donate>Faire un don</a>
+    <nav class="site-nav" id="navigation" aria-label="Navigation principale"><ul class="site-nav__list"><li><a href="index.html" data-page="accueil">Accueil</a></li><li><a href="mission.html" data-page="mission">Mission</a></li><li><a href="approche.html" data-page="approche">Approche</a></li><li><a href="a-propos.html" data-page="a-propos">À propos</a></li><li><a href="conseil.html" data-page="conseil">Conseil</a></li><li><a href="dons.html" data-page="dons">Dons</a></li></ul><div class="site-nav__cta"><a class="btn btn--event" href="https://www.zeffy.com/en-CA/ticketing/ensemble-lancement-de-la-fondation-honorer-aimer" target="_blank" rel="noopener noreferrer">Lancement</a><a class="btn btn--primary" href="#faire-un-don">Faire un don</a></div></nav>
+    <div class="header-actions"><a class="btn btn--event" href="https://www.zeffy.com/en-CA/ticketing/ensemble-lancement-de-la-fondation-honorer-aimer" target="_blank" rel="noopener noreferrer">Lancement</a><a class="btn btn--primary" href="#faire-un-don">Faire un don</a></div>
   </div></header>
   <main id="contenu">
     <section class="page-hero"><div class="container page-hero__content reveal"><span class="section__label">Soutenir</span><h1 class="page-hero__title">Rejoindre le mouvement</h1><p class="page-hero__lead">Chaque contribution aide à créer davantage d’espaces pour ralentir, respirer, être accueilli et se sentir moins seul.</p></div></section>
     <section class="section section--dark" id="faire-un-don"><div class="container donate-layout">
       <div class="reveal"><span class="section__label">Votre impact</span><h2 class="section__title">Être entouré peut tout changer</h2><p class="section__lead">La Fondation Honorer Aimer est née du désir de briser l’isolement et de veiller à la santé mentale des personnes qui traversent le deuil, la perte et les périodes les plus difficiles de la vie.</p><hr class="divider"><p class="section__lead">Nous croyons que chaque humain mérite d’avoir accès à des espaces de soutien, de connexion et de mieux-être, peu importe sa situation financière. Vos dons permettent d’offrir des expériences accessibles, à faible coût et, lorsque possible, gratuites.</p></div>
-      <div class="donate-card reveal"><h2 class="donate-card__title">Faire un don</h2><p>Votre don soutient des séjours, des ateliers et des outils accessibles pour les personnes endeuillées.</p><a class="btn btn--on-dark" href="mailto:bonjour@fondationha.com" data-donate>Continuer vers le don</a><p class="donate-card__note">Paiement sécurisé via Stripe lorsque le lien de paiement sera activé.</p></div>
+      <div class="donate-card reveal">
+        <h2 class="donate-card__title">Faire un don</h2>
+        <p>Votre don soutient des séjours, des ateliers et des outils accessibles pour les personnes endeuillées.</p>
+        <form class="donate-form" data-donate-form>
+          <p class="donate-form__label" id="donate-amount-label">Montant (CAD)</p>
+          <div class="donate-amounts" role="group" aria-labelledby="donate-amount-label">
+            <button type="button" class="donate-amount" data-donate-amount="25" aria-pressed="false">25&nbsp;$</button>
+            <button type="button" class="donate-amount" data-donate-amount="50" aria-pressed="true">50&nbsp;$</button>
+            <button type="button" class="donate-amount" data-donate-amount="100" aria-pressed="false">100&nbsp;$</button>
+            <button type="button" class="donate-amount" data-donate-amount="250" aria-pressed="false">250&nbsp;$</button>
+          </div>
+          <div class="donate-custom">
+            <label class="donate-form__label" for="donate-custom-dons">Autre montant</label>
+            <div class="donate-custom__field">
+              <span class="donate-custom__prefix" aria-hidden="true">$</span>
+              <input class="donate-custom__input" id="donate-custom-dons" data-donate-custom type="text" inputmode="decimal" autocomplete="off" placeholder="Montant libre" aria-describedby="donate-hint-dons">
+              <span class="donate-custom__suffix" aria-hidden="true">CAD</span>
+            </div>
+          </div>
+          <p class="donate-form__hint" id="donate-hint-dons" data-donate-hint>Sur Stripe, confirmez le montant de votre don (CAD).</p>
+          <p class="donate-form__error" data-donate-error hidden role="alert"></p>
+          <button class="btn btn--on-dark" type="submit" data-donate-submit>Continuer vers le paiement</button>
+        </form>
+        <p class="donate-card__note">Paiement sécurisé via Stripe. Un reçu vous sera transmis selon les modalités de la fondation.</p>
+      </div>
     </div></section>
     <section class="merci" id="merci" hidden aria-labelledby="merci-title"><div class="container"><h2 id="merci-title">Merci du fond du cœur</h2><p>Votre générosité contribue à créer des espaces pour ralentir, respirer et se sentir moins seul. Ensemble, vivons le deuil autrement.</p></div></section>
     <section class="section"><div class="container container--narrow reveal"><span class="section__label">Une question?</span><h2 class="section__title">Parlons-en</h2><p class="section__lead">Pour toute question concernant les dons ou la mission de la fondation, écrivez-nous à <a href="mailto:bonjour@fondationha.com">bonjour@fondationha.com</a>.</p></div></section>

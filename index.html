@@ -47,11 +47,15 @@
           <li><a href="dons.html" data-page="dons">Dons</a></li>
         </ul>
         <div class="site-nav__cta">
-          <a class="btn btn--primary" href="dons.html">Faire un don</a>
+          <a class="btn btn--event" href="https://www.zeffy.com/en-CA/ticketing/ensemble-lancement-de-la-fondation-honorer-aimer" target="_blank" rel="noopener noreferrer">Lancement</a>
+          <a class="btn btn--primary" href="#dons">Faire un don</a>
         </div>
       </nav>
 
-      <a class="btn btn--primary header-cta" href="dons.html">Faire un don</a>
+      <div class="header-actions">
+        <a class="btn btn--event" href="https://www.zeffy.com/en-CA/ticketing/ensemble-lancement-de-la-fondation-honorer-aimer" target="_blank" rel="noopener noreferrer">Lancement</a>
+        <a class="btn btn--primary" href="#dons">Faire un don</a>
+      </div>
     </div>
   </header>
 
@@ -74,7 +78,8 @@
           Des espaces profondément humains pour ralentir, se déposer et se sentir moins seul·e dans ce que l’on traverse.
         </p>
         <div class="btn-row">
-          <a class="btn btn--primary" href="dons.html">Faire un don</a>
+          <a class="btn btn--event" href="https://www.zeffy.com/en-CA/ticketing/ensemble-lancement-de-la-fondation-honorer-aimer" target="_blank" rel="noopener noreferrer">Réserver — Lancement</a>
+          <a class="btn btn--primary" href="#dons">Faire un don</a>
           <a class="btn btn--secondary" href="mission.html">Découvrir la fondation</a>
         </div>
       </div>
@@ -281,9 +286,26 @@
           <p>
             Votre don soutient des séjours, des ateliers et des outils accessibles pour les personnes endeuillées.
           </p>
-          <a class="btn btn--on-dark" href="mailto:bonjour@fondationha.com" data-donate>
-            Faire un don
-          </a>
+          <form class="donate-form" data-donate-form>
+            <p class="donate-form__label" id="donate-amount-label-home">Montant (CAD)</p>
+            <div class="donate-amounts" role="group" aria-labelledby="donate-amount-label-home">
+              <button type="button" class="donate-amount" data-donate-amount="25" aria-pressed="false">25&nbsp;$</button>
+              <button type="button" class="donate-amount" data-donate-amount="50" aria-pressed="true">50&nbsp;$</button>
+              <button type="button" class="donate-amount" data-donate-amount="100" aria-pressed="false">100&nbsp;$</button>
+              <button type="button" class="donate-amount" data-donate-amount="250" aria-pressed="false">250&nbsp;$</button>
+            </div>
+            <div class="donate-custom">
+              <label class="donate-form__label" for="donate-custom-home">Autre montant</label>
+              <div class="donate-custom__field">
+                <span class="donate-custom__prefix" aria-hidden="true">$</span>
+                <input class="donate-custom__input" id="donate-custom-home" data-donate-custom type="text" inputmode="decimal" autocomplete="off" placeholder="Montant libre" aria-describedby="donate-hint-home">
+                <span class="donate-custom__suffix" aria-hidden="true">CAD</span>
+              </div>
+            </div>
+            <p class="donate-form__hint" id="donate-hint-home" data-donate-hint>Sur Stripe, confirmez le montant de votre don (CAD).</p>
+            <p class="donate-form__error" data-donate-error hidden role="alert"></p>
+            <button class="btn btn--on-dark" type="submit" data-donate-submit>Continuer vers le paiement</button>
+          </form>
           <p class="donate-card__note">
             Paiement sécurisé via Stripe. Un reçu vous sera transmis selon les modalités de la fondation.
           </p>

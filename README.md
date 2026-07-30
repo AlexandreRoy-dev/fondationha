@@ -47,29 +47,15 @@ npx serve .
 
 Puis ouvrir `http://localhost:8080`.
 
-## Stripe - bouton « Faire un don »
+## Stripe - formulaire de don
 
-Le site utilise un **Payment Link** Stripe (page de paiement hébergée). Aucune clé secrète n’est exposée dans le navigateur.
+Le site propose des montants suggérés (25 / 50 / 100 / 250 $ ou montant libre), puis ouvre **un seul Payment Link** Stripe (CAD, montant libre). Le donateur confirme le montant sur la page Stripe.
 
-### Créer le lien (compte Stripe de la fondation)
+URL live dans [`js/modules/config.js`](js/modules/config.js) (`STRIPE_PAYMENT_LINK`).
 
-1. Se connecter au [Stripe Dashboard](https://dashboard.stripe.com/)
-2. **Payment Links** → **New**
-3. Produit : `Don - Fondation Honorer Aimer`
-4. Prix : **Customer chooses what to pay** (montant libre)
-5. Devise : **CAD**
-6. (Optionnel) After payment → redirect vers `https://fondationha.com/dons.html?don=merci` pour afficher le bandeau de remerciement
-7. Copier l’URL (`https://buy.stripe.com/...`)
+Après paiement, Stripe redirige vers `dons.html?don=merci`.
 
-### Brancher le lien dans le site
-
-Ouvrir [`js/modules/config.js`](js/modules/config.js) et coller l’URL :
-
-```js
-export const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/VOTRE_LIEN";
-```
-
-Tant que la constante est vide, les boutons « Faire un don » ouvrent un courriel vers `bonjour@fondationha.com`.
+Aucune clé secrète n’est dans le site — seulement l’URL publique `donate.stripe.com/...`.
 
 ## Déploiement GitHub Pages
 
