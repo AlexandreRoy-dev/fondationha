@@ -66,10 +66,9 @@ Aucune clé secrète n’est dans le site; seulement l’URL publique `donate.st
 
 ## Photos du conseil d’administration
 
-Les cartes du CA utilisent pour l’instant des monogrammes. Pour ajouter les photos :
+Photos actuelles dans `assets/images/board/` : Dominique, Marie-Eve, Cynthia, Sandra.
 
-1. Déposer les fichiers dans `assets/images/board/` (ex. `dominique-st-jean.jpg`)
-2. Remplacer le `<div class="board-card__avatar">` par un `<img>` dans `conseil.html`
+Pour Joanie Langelier et Melissa Filion : déposer le fichier (ex. `joanie-langelier.jpg`), puis remplacer le monogramme par un `<img>` dans `conseil.html` et `index.html`.
 
 ## Contact
 
