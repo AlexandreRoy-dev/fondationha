@@ -2,7 +2,7 @@
  * Site configuration - Fondation Honorer Aimer
  *
  * One live Stripe Payment Link (CAD, montant libre) for all donations.
- * Suggested amounts on the site are UX only; the donor confirms the amount on Stripe.
+ * Selected/custom amounts are passed via ?__prefilled_amount= (cents).
  */
 export const STRIPE_PAYMENT_LINK =
   "https://donate.stripe.com/dRmdRafleac58QTakc8Ra00";

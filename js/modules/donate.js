@@ -11,8 +11,21 @@ function hasStripeLink() {
   );
 }
 
-function checkoutUrl() {
-  return hasStripeLink() ? STRIPE_PAYMENT_LINK : DONATE_MAILTO;
+/**
+ * Build checkout URL with the donor's amount prefilled on Stripe.
+ * Amount is in CAD dollars; Stripe expects cents via __prefilled_amount.
+ */
+function checkoutUrl(amountCad) {
+  if (!hasStripeLink()) return DONATE_MAILTO;
+
+  const url = new URL(STRIPE_PAYMENT_LINK);
+  if (typeof amountCad === "number" && Number.isFinite(amountCad)) {
+    const cents = Math.round(amountCad * 100);
+    if (cents > 0) {
+      url.searchParams.set("__prefilled_amount", String(cents));
+    }
+  }
+  return url.toString();
 }
 
 function openCheckout(url) {
@@ -49,7 +62,7 @@ export function initDonateLinks() {
 }
 
 /**
- * Amount suggestions → same Stripe Payment Link (donor confirms amount there).
+ * Amount picker → Stripe Payment Link with that amount prefilled.
  * form[data-donate-form] + [data-donate-amount] + [data-donate-custom] + [data-donate-submit]
  */
 export function initDonateForms() {
@@ -68,18 +81,12 @@ export function initDonateForms() {
     };
 
     const updateHint = () => {
-      if (!hintEl || !hasStripeLink()) {
-        if (hintEl) hintEl.hidden = true;
+      if (!hintEl) return;
+      if (!hasStripeLink()) {
+        hintEl.hidden = true;
         return;
       }
-      const amountLabel =
-        selected === "custom"
-          ? customInput?.value.trim()
-            ? `${parseCustomAmount(customInput.value) ?? "…"} $`
-            : "votre montant"
-          : `${selected} $`;
-      hintEl.textContent = `Sur Stripe, entrez ${amountLabel} (CAD) pour confirmer votre don.`;
-      hintEl.hidden = false;
+      hintEl.hidden = true;
     };
 
     const selectPreset = (value) => {
@@ -141,7 +148,7 @@ export function initDonateForms() {
         return;
       }
 
-      openCheckout(checkoutUrl());
+      openCheckout(checkoutUrl(amountCad));
     });
 
     const defaultBtn = amountButtons.find(
