@@ -49,7 +49,7 @@ Puis ouvrir `http://localhost:8080`.
 
 ## Stripe - formulaire de don
 
-Le site propose des montants suggérés (25 / 50 / 100 / 250 $ ou montant libre), puis ouvre **un seul Payment Link** Stripe (CAD, montant libre). Le donateur confirme le montant sur la page Stripe.
+Le site propose des montants suggérés (25 / 50 / 100 / 250 $ ou montant libre), puis ouvre **un seul Payment Link** Stripe (CAD, montant libre). Le montant choisi est transmis via `?__prefilled_amount=` (en cents).
 
 URL live dans [`js/modules/config.js`](js/modules/config.js) (`STRIPE_PAYMENT_LINK`).
 
