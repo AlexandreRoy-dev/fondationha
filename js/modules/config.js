@@ -25,3 +25,7 @@ export const CONTACT_EMAIL = "bonjour@fondationha.com";
 /** Lancement officiel: billetterie Zeffy */
 export const EVENT_LAUNCH_URL =
   "https://www.zeffy.com/en-CA/ticketing/ensemble-lancement-de-la-fondation-honorer-aimer";
+
+/** Page Facebook de la fondation */
+export const FACEBOOK_URL =
+  "https://www.facebook.com/profile.php?id=61590563364527";

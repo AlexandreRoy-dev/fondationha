@@ -1029,6 +1029,15 @@ ul {
   margin-inline: auto;
 }
 
+.merci__invite {
+  margin-top: var(--space-4);
+}
+
+.merci__actions {
+  justify-content: center;
+  margin-top: var(--space-5);
+}
+
 /* Footer */
 .site-footer {
   background: var(--vert-fonce);
