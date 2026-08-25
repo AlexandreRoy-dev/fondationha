@@ -1,3 +1,27 @@
+@font-face {
+  font-family: "TT Fors";
+  src: local("TT Fors Regular"), local("TT Fors"), local("TTFors-Regular");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Fors";
+  src: local("TT Fors Italic"), local("TTFors-Italic");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Fors";
+  src: local("TT Fors Medium"), local("TTFors-Medium");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Brand - moodboard Fondation Honorer Aimer */
   --vert-fonce: #3d4a3a;
@@ -19,9 +43,9 @@
   --color-border: rgba(61, 74, 58, 0.14);
   --color-border-strong: rgba(61, 74, 58, 0.28);
 
-  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-script: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-serif: "TT Fors", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "TT Fors", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-script: "TT Fors", Inter, system-ui, sans-serif;
 
   --fs-xs: 0.75rem;
   --fs-sm: 0.875rem;

@@ -24,9 +24,9 @@
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/styles.css?v=20260825e">
+  <link rel="stylesheet" href="css/styles.css?v=20260825f">
 </head>
 <body data-page="accueil">
   <a class="sr-only" href="#contenu">Aller au contenu</a>
@@ -90,12 +90,12 @@
       </div>
     </section>
 
-    <!-- Mission & Vision -->
+    <!-- Mission et vision -->
     <section class="section" id="mission" aria-labelledby="mission-title">
       <div class="container">
         <div class="reveal">
           <span class="section__label">Notre raison d’être</span>
-          <h2 class="section__title" id="mission-title">Mission &amp; vision</h2>
+          <h2 class="section__title" id="mission-title">Mission et vision</h2>
         </div>
 
         <div class="split-grid">
@@ -111,6 +111,69 @@
               Faire du ressourcement une réponse essentielle au deuil au Québec — pas une option parmi d’autres, mais un droit pour chaque personne qui vit un deuil.
             </p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="dons" aria-labelledby="dons-title">
+      <div class="container donate-layout">
+        <div class="reveal">
+          <span class="section__label">Soutenir</span>
+          <h2 class="section__title" id="dons-title">Rejoindre le mouvement</h2>
+          <p class="section__lead">
+            Votre don rend possible le ressourcement spécialisé en contexte de deuil&nbsp;: des séjours, des ateliers et des outils accessibles, pour que personne n’ait à traverser cette épreuve seul.
+          </p>
+          <hr class="divider">
+          <p class="section__lead">
+            Nous croyons que chaque personne mérite d’avoir accès au ressourcement, peu importe sa situation financière. Un don finance concrètement cette accessibilité&nbsp;: plus de places, plus de séjours, plus d’activités à faible coût et, lorsque possible, gratuites.
+          </p>
+          <p class="section__lead section__lead--spaced">
+            Chaque contribution aide à ouvrir davantage d’espaces de ressourcement — pour ralentir, respirer, être accueilli et se sentir moins seul.
+          </p>
+        </div>
+
+        <div class="donate-card reveal">
+          <h3 class="donate-card__title">Contribuer</h3>
+          <p>
+            Votre don finance le ressourcement spécialisé&nbsp;: séjours, ateliers et outils rendus accessibles aux personnes endeuillées, aux proches aidants et aux personnes en fin de vie.
+          </p>
+          <form class="donate-form" data-donate-form>
+            <p class="donate-form__label" id="donate-amount-label-home">Montant (CAD)</p>
+            <div class="donate-amounts" role="group" aria-labelledby="donate-amount-label-home">
+              <button type="button" class="donate-amount" data-donate-amount="25" aria-pressed="false">25&nbsp;$</button>
+              <button type="button" class="donate-amount" data-donate-amount="50" aria-pressed="true">50&nbsp;$</button>
+              <button type="button" class="donate-amount" data-donate-amount="100" aria-pressed="false">100&nbsp;$</button>
+              <button type="button" class="donate-amount" data-donate-amount="250" aria-pressed="false">250&nbsp;$</button>
+            </div>
+            <div class="donate-custom">
+              <label class="donate-form__label" for="donate-custom-home">Autre montant</label>
+              <div class="donate-custom__field">
+                <span class="donate-custom__prefix" aria-hidden="true">$</span>
+                <input class="donate-custom__input" id="donate-custom-home" data-donate-custom type="text" inputmode="decimal" autocomplete="off" placeholder="Montant libre" aria-describedby="donate-hint-home">
+                <span class="donate-custom__suffix" aria-hidden="true">CAD</span>
+              </div>
+            </div>
+            <p class="donate-form__hint" id="donate-hint-home" data-donate-hint hidden></p>
+            <p class="donate-form__error" data-donate-error hidden role="alert"></p>
+            <button class="btn btn--on-dark" type="submit" data-donate-submit>Continuer vers le don</button>
+          </form>
+          <p class="donate-card__note">
+            Paiement sécurisé via Stripe. Un reçu vous sera transmis selon les modalités de la fondation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="merci" id="merci" hidden aria-labelledby="merci-title">
+      <div class="container">
+        <h2 id="merci-title">Merci du fond du cœur</h2>
+        <p>
+          Votre générosité contribue à créer des espaces pour ralentir, respirer et se sentir moins seul. Ensemble, vivons le deuil autrement.
+        </p>
+        <p class="merci__invite">Restez près du mouvement&nbsp;: suivez-nous sur Facebook, et si une histoire vous habite, nous serions touchés de l’entendre.</p>
+        <div class="merci__actions btn-row">
+          <a class="btn btn--primary" href="https://www.facebook.com/profile.php?id=61590563364527" target="_blank" rel="noopener noreferrer">Suivre sur Facebook</a>
+          <a class="btn btn--secondary" href="mailto:bonjour@fondationha.com?subject=Je%20souhaite%20partager%20mon%20histoire">Partager mon histoire</a>
         </div>
       </div>
     </section>
@@ -179,7 +242,7 @@
               <rect x="7" y="9" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
               <path d="M11 15h10M11 19h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-            <h3>Conférences &amp; ateliers</h3>
+            <h3>Conférences et ateliers</h3>
             <p>Des outils de mieux-être accessibles, en présentiel ou en virtuel.</p>
           </article>
           <article class="card reveal">
@@ -194,13 +257,6 @@
         <p class="approach-note reveal">
           La fondation souhaite rendre le ressourcement accessible grâce à des activités à faible coût ou gratuites, afin que le soutien au deuil puisse être offert avec plus d’humanité, d’ouverture et de bienveillance. Parce qu’au fond, personne ne devrait avoir à traverser le deuil seul.
         </p>
-      </div>
-    </section>
-
-    <section class="donate-banner" aria-labelledby="donate-banner-title">
-      <div class="container donate-banner__inner reveal">
-        <p id="donate-banner-title">Vous croyez à ce qu’on fait&nbsp;? Soutenez le ressourcement accessible.</p>
-        <a class="btn btn--primary" href="#dons">Contribuer</a>
       </div>
     </section>
 
@@ -332,71 +388,6 @@
         </ul>
       </div>
     </section>
-
-    <!-- Dons / Rejoindre le mouvement -->
-    <section class="section section--dark" id="dons" aria-labelledby="dons-title">
-      <div class="container donate-layout">
-        <div class="reveal">
-          <span class="section__label">Soutenir</span>
-          <h2 class="section__title" id="dons-title">Rejoindre le mouvement</h2>
-          <p class="section__lead">
-            Votre don rend possible le ressourcement spécialisé en contexte de deuil&nbsp;: des séjours, des ateliers et des outils accessibles, pour que personne n’ait à traverser cette épreuve seul.
-          </p>
-          <hr class="divider">
-          <p class="section__lead">
-            Nous croyons que chaque personne mérite d’avoir accès au ressourcement, peu importe sa situation financière. Un don finance concrètement cette accessibilité&nbsp;: plus de places, plus de séjours, plus d’activités à faible coût et, lorsque possible, gratuites.
-          </p>
-          <p class="section__lead section__lead--spaced">
-            Chaque contribution aide à ouvrir davantage d’espaces de ressourcement — pour ralentir, respirer, être accueilli et se sentir moins seul.
-          </p>
-        </div>
-
-        <div class="donate-card reveal">
-          <h3 class="donate-card__title">Contribuer</h3>
-          <p>
-            Votre don finance le ressourcement spécialisé&nbsp;: séjours, ateliers et outils rendus accessibles aux personnes endeuillées, aux proches aidants et aux personnes en fin de vie.
-          </p>
-          <form class="donate-form" data-donate-form>
-            <p class="donate-form__label" id="donate-amount-label-home">Montant (CAD)</p>
-            <div class="donate-amounts" role="group" aria-labelledby="donate-amount-label-home">
-              <button type="button" class="donate-amount" data-donate-amount="25" aria-pressed="false">25&nbsp;$</button>
-              <button type="button" class="donate-amount" data-donate-amount="50" aria-pressed="true">50&nbsp;$</button>
-              <button type="button" class="donate-amount" data-donate-amount="100" aria-pressed="false">100&nbsp;$</button>
-              <button type="button" class="donate-amount" data-donate-amount="250" aria-pressed="false">250&nbsp;$</button>
-            </div>
-            <div class="donate-custom">
-              <label class="donate-form__label" for="donate-custom-home">Autre montant</label>
-              <div class="donate-custom__field">
-                <span class="donate-custom__prefix" aria-hidden="true">$</span>
-                <input class="donate-custom__input" id="donate-custom-home" data-donate-custom type="text" inputmode="decimal" autocomplete="off" placeholder="Montant libre" aria-describedby="donate-hint-home">
-                <span class="donate-custom__suffix" aria-hidden="true">CAD</span>
-              </div>
-            </div>
-            <p class="donate-form__hint" id="donate-hint-home" data-donate-hint hidden></p>
-            <p class="donate-form__error" data-donate-error hidden role="alert"></p>
-            <button class="btn btn--on-dark" type="submit" data-donate-submit>Continuer vers le don</button>
-          </form>
-          <p class="donate-card__note">
-            Paiement sécurisé via Stripe. Un reçu vous sera transmis selon les modalités de la fondation.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Merci (shown when ?don=merci) -->
-    <section class="merci" id="merci" hidden aria-labelledby="merci-title">
-      <div class="container">
-        <h2 id="merci-title">Merci du fond du cœur</h2>
-        <p>
-          Votre générosité contribue à créer des espaces pour ralentir, respirer et se sentir moins seul. Ensemble, vivons le deuil autrement.
-        </p>
-        <p class="merci__invite">Restez près du mouvement&nbsp;: suivez-nous sur Facebook, et si une histoire vous habite, nous serions touchés de l’entendre.</p>
-        <div class="merci__actions btn-row">
-          <a class="btn btn--primary" href="https://www.facebook.com/profile.php?id=61590563364527" target="_blank" rel="noopener noreferrer">Suivre sur Facebook</a>
-          <a class="btn btn--secondary" href="mailto:bonjour@fondationha.com?subject=Je%20souhaite%20partager%20mon%20histoire">Partager mon histoire</a>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="site-footer">
@@ -410,7 +401,7 @@
         <div>
           <p class="footer__heading">Explorer</p>
           <ul class="footer__links">
-            <li><a href="mission.html">Mission &amp; vision</a></li>
+            <li><a href="mission.html">Mission et vision</a></li>
             <li><a href="approche.html">Notre approche</a></li>
             <li><a href="fin-de-vie.html">Fin de vie</a></li>
             <li><a href="proche-aidant.html">Proche aidant</a></li>
