@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=20260825e">
 </head>
 <body data-page="mission">
   <a class="sr-only" href="#contenu">Aller au contenu</a>
@@ -35,13 +35,15 @@
           <li><a href="index.html" data-page="accueil">Accueil</a></li>
           <li><a href="mission.html" data-page="mission">Mission</a></li>
           <li><a href="approche.html" data-page="approche">Approche</a></li>
+          <li><a href="fin-de-vie.html" data-page="fin-de-vie">Fin de vie</a></li>
+          <li><a href="proche-aidant.html" data-page="proche-aidant">Proche aidant</a></li>
           <li><a href="a-propos.html" data-page="a-propos">À propos</a></li>
           <li><a href="conseil.html" data-page="conseil">Conseil</a></li>
-          <li><a href="dons.html" data-page="dons">Dons</a></li>
+          <li><a class="nav-link--dons" href="dons.html" data-page="dons">Dons</a></li>
         </ul>
-        <div class="site-nav__cta"><a class="btn btn--event" href="https://www.zeffy.com/en-CA/ticketing/ensemble-lancement-de-la-fondation-honorer-aimer" target="_blank" rel="noopener noreferrer">Lancement</a><a class="btn btn--primary" href="dons.html">Faire un don</a></div>
+        <div class="site-nav__cta"><a class="btn btn--primary" href="dons.html">Contribuer</a></div>
       </nav>
-      <div class="header-actions"><a class="btn btn--event" href="https://www.zeffy.com/en-CA/ticketing/ensemble-lancement-de-la-fondation-honorer-aimer" target="_blank" rel="noopener noreferrer">Lancement</a><a class="btn btn--primary" href="dons.html">Faire un don</a></div>
+      <div class="header-actions"><a class="btn btn--primary" href="dons.html">Contribuer</a></div>
     </div>
   </header>
   <main id="contenu">
@@ -60,7 +62,7 @@
         </article>
         <article class="panel reveal">
           <h2>Notre vision</h2>
-          <p>Contribuer à transformer la façon dont le deuil est vécu et accompagné au Québec.</p>
+          <p>Faire du ressourcement une réponse essentielle au deuil au Québec — pas une option parmi d’autres, mais un droit pour chaque personne qui vit un deuil.</p>
         </article>
       </div>
     </section>
@@ -74,8 +76,8 @@
     </section>
     <nav class="container page-nav" aria-label="Pages suivantes"><a href="index.html">← Accueil</a><a href="approche.html">Notre approche →</a></nav>
   </main>
-  <footer class="site-footer"><div class="container"><div class="footer__grid"><div class="footer__brand"><img src="assets/images/logo-light.png" alt="Fondation Honorer Aimer" width="200" height="85"><p>Ensemble, vivons le deuil autrement.</p></div><div><p class="footer__heading">Explorer</p><ul class="footer__links"><li><a href="mission.html">Mission &amp; vision</a></li><li><a href="approche.html">Notre approche</a></li><li><a href="a-propos.html">À propos</a></li><li><a href="conseil.html">Conseil d’administration</a></li><li><a href="dons.html">Faire un don</a></li></ul></div><div><p class="footer__heading">Contact</p><ul class="footer__links"><li><a href="mailto:bonjour@fondationha.com">bonjour@fondationha.com</a></li><li>Québec, Canada</li></ul></div></div><div class="footer__bottom"><p>© <span id="year">2026</span> Fondation Honorer Aimer. Tous droits réservés.</p><p>Conception web par <a href="https://roymarketing.ca" target="_blank" rel="noopener noreferrer">Roy Marketing</a></p></div></div></footer>
-  <script type="module" src="js/main.js?v=20260807b"></script>
+  <footer class="site-footer"><div class="container"><div class="footer__grid"><div class="footer__brand"><img src="assets/images/logo-light.png" alt="Fondation Honorer Aimer" width="200" height="85"><p>Ensemble, vivons le deuil autrement.</p></div><div><p class="footer__heading">Explorer</p><ul class="footer__links"><li><a href="mission.html">Mission &amp; vision</a></li><li><a href="approche.html">Notre approche</a></li><li><a href="fin-de-vie.html">Fin de vie</a></li><li><a href="proche-aidant.html">Proche aidant</a></li><li><a href="a-propos.html">À propos</a></li><li><a href="conseil.html">Conseil d’administration</a></li><li><a href="dons.html">Contribuer</a></li></ul></div><div><p class="footer__heading">Contact</p><ul class="footer__links"><li><a href="mailto:bonjour@fondationha.com">bonjour@fondationha.com</a></li><li>Québec, Canada</li></ul></div></div><div class="footer__bottom"><p>© <span id="year">2026</span> Fondation Honorer Aimer. Tous droits réservés.</p><p>Conception web par <a href="https://roymarketing.ca" target="_blank" rel="noopener noreferrer">Roy Marketing</a></p></div></div></footer>
+  <script type="module" src="js/main.js?v=20260825c"></script>
   <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

@@ -11,6 +11,7 @@ export function initNav() {
     toggle.setAttribute("aria-expanded", String(open));
     toggle.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
     nav.classList.toggle("is-open", open);
+    header.classList.toggle("is-nav-open", open);
     if (mobileQuery.matches) {
       nav.toggleAttribute("inert", !open);
     } else {
@@ -22,6 +23,7 @@ export function initNav() {
   const syncViewport = () => {
     if (!mobileQuery.matches) {
       setOpen(false);
+      header.classList.remove("is-nav-open");
       nav.removeAttribute("inert");
       document.body.style.overflow = "";
     } else if (toggle.getAttribute("aria-expanded") !== "true") {
