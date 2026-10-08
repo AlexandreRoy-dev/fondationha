@@ -166,12 +166,12 @@ ul {
   overflow: hidden;
   padding-block: clamp(5rem, 10vw, 9rem);
   background:
-    linear-gradient(90deg, rgba(240, 235, 228, 0.98), rgba(240, 235, 228, 0.78)),
+    linear-gradient(90deg, rgba(231, 221, 208, 0.98), rgba(231, 221, 208, 0.78)),
     var(--page-image, none) center / cover;
 }
 
-.page-hero--forest {
-  --page-image: url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000&auto=format&fit=crop");
+.page-hero--photo {
+  --page-image: url("../assets/images/photos/bougie.jpg");
 }
 
 .mt-6 {
@@ -249,7 +249,7 @@ ul {
 .divider {
   width: 3.5rem;
   height: 1px;
-  background: var(--sauge-pale);
+  background: var(--terre);
   border: 0;
   margin: var(--space-5) 0;
 }
@@ -286,7 +286,7 @@ ul {
 }
 
 .btn--primary:hover {
-  background: #2f3a2d;
+  background: #354736;
   color: var(--creme);
 }
 
@@ -314,7 +314,7 @@ ul {
 .btn--ghost-light {
   background: transparent;
   color: var(--creme);
-  border-color: rgba(240, 235, 228, 0.45);
+  border-color: rgba(231, 221, 208, 0.45);
 }
 
 .btn--ghost-light:hover {
@@ -329,8 +329,8 @@ ul {
 }
 
 .btn--event:hover {
-  background: #6a7c5f;
-  border-color: #6a7c5f;
+  background: #696e5b;
+  border-color: #696e5b;
   color: var(--blanc);
 }
 
@@ -359,7 +359,7 @@ ul {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: rgba(240, 235, 228, 0.92);
+  background: rgba(231, 221, 208, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   pointer-events: none;
@@ -367,7 +367,7 @@ ul {
 
 .site-header.is-scrolled {
   border-bottom-color: var(--color-border);
-  box-shadow: 0 8px 24px rgba(61, 74, 58, 0.04);
+  box-shadow: 0 8px 24px rgba(66, 89, 67, 0.04);
 }
 
 .site-header__inner {
@@ -589,6 +589,7 @@ ul {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 22%;
   filter: saturate(0.75) brightness(0.92);
 }
 
@@ -597,8 +598,8 @@ ul {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(240, 235, 228, 0.55) 0%, rgba(240, 235, 228, 0.82) 45%, var(--creme) 100%),
-    linear-gradient(90deg, rgba(240, 235, 228, 0.55) 0%, transparent 60%);
+    linear-gradient(180deg, rgba(231, 221, 208, 0.55) 0%, rgba(231, 221, 208, 0.82) 45%, var(--creme) 100%),
+    linear-gradient(90deg, rgba(231, 221, 208, 0.55) 0%, transparent 60%);
 }
 
 .hero__content {
@@ -807,8 +808,8 @@ ul {
 .approach-note {
   margin-top: var(--space-7);
   padding: var(--space-6);
-  border-left: 2px solid var(--sauge-pale);
-  background: rgba(181, 168, 138, 0.12);
+  border-left: 2px solid var(--terre);
+  background: rgba(167, 131, 99, 0.1);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   max-width: 48rem;
   font-family: var(--font-serif);
@@ -852,11 +853,16 @@ ul {
   filter: saturate(0.8);
 }
 
+.about-aside--real img {
+  filter: none;
+  object-position: center 32%;
+}
+
 .about-aside__caption {
   position: absolute;
   inset: auto 0 0 0;
   padding: var(--space-5);
-  background: linear-gradient(transparent, rgba(42, 50, 40, 0.75));
+  background: linear-gradient(transparent, rgba(42, 50, 40, 0.72));
   color: var(--creme);
   font-family: var(--font-serif);
   font-size: var(--fs-lg);
@@ -975,8 +981,8 @@ ul {
 }
 
 .donate-card {
-  background: rgba(240, 235, 228, 0.08);
-  border: 1px solid rgba(240, 235, 228, 0.18);
+  background: rgba(231, 221, 208, 0.08);
+  border: 1px solid rgba(231, 221, 208, 0.18);
   border-radius: var(--radius-lg);
   padding: var(--space-5);
   text-align: center;
@@ -1011,7 +1017,7 @@ ul {
 .donate-card__note {
   margin-top: var(--space-4);
   font-size: var(--fs-xs);
-  color: rgba(240, 235, 228, 0.55);
+  color: rgba(231, 221, 208, 0.78);
 }
 
 .donate-form {
@@ -1025,7 +1031,7 @@ ul {
   font-size: var(--fs-xs);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(240, 235, 228, 0.7);
+  color: rgba(231, 221, 208, 0.7);
   margin-bottom: var(--space-3);
 }
 
@@ -1045,7 +1051,7 @@ ul {
 
 .donate-amount {
   appearance: none;
-  border: 1px solid rgba(240, 235, 228, 0.28);
+  border: 1px solid rgba(231, 221, 208, 0.28);
   background: transparent;
   color: var(--creme);
   font-family: var(--font-sans);
@@ -1061,7 +1067,7 @@ ul {
 }
 
 .donate-amount:hover {
-  border-color: rgba(240, 235, 228, 0.55);
+  border-color: rgba(231, 221, 208, 0.55);
 }
 
 .donate-amount.is-active {
@@ -1085,14 +1091,14 @@ ul {
   align-items: stretch;
   min-width: 0;
   width: 100%;
-  border: 1px solid rgba(240, 235, 228, 0.28);
+  border: 1px solid rgba(231, 221, 208, 0.28);
   border-radius: var(--radius-sm);
   overflow: hidden;
   background: rgba(0, 0, 0, 0.12);
 }
 
 .donate-custom__field:focus-within {
-  border-color: rgba(240, 235, 228, 0.55);
+  border-color: rgba(231, 221, 208, 0.55);
   box-shadow: var(--focus-ring);
 }
 
@@ -1101,9 +1107,9 @@ ul {
   align-items: center;
   flex-shrink: 0;
   padding-inline: 0.65rem;
-  color: rgba(240, 235, 228, 0.65);
+  color: rgba(231, 221, 208, 0.65);
   font-size: var(--fs-sm);
-  border-right: 1px solid rgba(240, 235, 228, 0.18);
+  border-right: 1px solid rgba(231, 221, 208, 0.18);
 }
 
 .donate-custom__input {
@@ -1119,7 +1125,7 @@ ul {
 }
 
 .donate-custom__input::placeholder {
-  color: rgba(240, 235, 228, 0.35);
+  color: rgba(231, 221, 208, 0.35);
 }
 
 .donate-custom__input:focus {
@@ -1131,7 +1137,7 @@ ul {
   align-items: center;
   flex-shrink: 0;
   padding-inline: 0.65rem;
-  color: rgba(240, 235, 228, 0.65);
+  color: rgba(231, 221, 208, 0.65);
   font-size: var(--fs-xs);
   letter-spacing: 0.04em;
 }
@@ -1143,7 +1149,7 @@ ul {
 }
 
 .donate-form__hint {
-  color: rgba(240, 235, 228, 0.55);
+  color: rgba(231, 221, 208, 0.55);
 }
 
 .donate-form__error {
@@ -1228,7 +1234,7 @@ ul {
 .footer__brand p {
   font-size: var(--fs-sm);
   max-width: 22rem;
-  color: rgba(250, 248, 245, 0.88);
+  color: rgba(247, 243, 238, 0.88);
 }
 
 .footer__heading {
@@ -1249,14 +1255,14 @@ ul {
 }
 
 .footer__bottom {
-  border-top: 1px solid rgba(240, 235, 228, 0.28);
+  border-top: 1px solid rgba(231, 221, 208, 0.28);
   padding-top: var(--space-5);
   font-size: var(--fs-xs);
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
   justify-content: space-between;
-  color: rgba(250, 248, 245, 0.82);
+  color: rgba(247, 243, 238, 0.82);
 }
 
 /* Reveal */
@@ -1276,5 +1282,124 @@ ul {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Ambassadeurs */
+.board-grid--ambassadors {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 860px) {
+  .board-grid--ambassadors {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.board-card--bio {
+  text-align: left;
+}
+
+.board-card--bio:hover {
+  transform: none;
+}
+
+.board-card__role {
+  text-align: center;
+  margin-bottom: var(--space-4);
+}
+
+.ambassador-logo {
+  display: block;
+  width: auto;
+  max-width: 11rem;
+  height: 2.4rem;
+  margin: 0 auto var(--space-4);
+  object-fit: contain;
+}
+
+.board-card__bio {
+  text-align: left;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+}
+
+/* Partenaires */
+.partner-tier {
+  margin-top: var(--space-8);
+}
+
+.partner-tier:first-child {
+  margin-top: var(--space-6);
+}
+
+.partner-tier h2 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--vert-sauge);
+  margin-bottom: var(--space-5);
+}
+
+.partner-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6) var(--space-8);
+}
+
+.partner-logos a {
+  text-decoration: none;
+}
+
+.partner-logos img {
+  width: auto;
+  max-width: min(18rem, 78vw);
+  max-height: 5.5rem;
+  object-fit: contain;
+  background: #fff;
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.partner-tier--founder .partner-logos img {
+  max-height: 7.5rem;
+  max-width: min(16rem, 70vw);
+}
+
+.partner-logos figcaption,
+.partner-caption {
+  width: 100%;
+  margin: var(--space-3) 0 0;
+  text-align: center;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.partner-logos--sponsors img {
+  max-height: 6.5rem;
+  max-width: min(14rem, 70vw);
+}
+
+.partner-logos--sponsors .partner-logo--lg {
+  max-height: 8rem;
+  max-width: min(17rem, 82vw);
+}
+
+@media (min-width: 960px) and (max-width: 1120px) {
+  .site-nav__list {
+    gap: 0.4rem 0.55rem;
+  }
+
+  .site-nav a {
+    font-size: 0.75rem;
   }
 }

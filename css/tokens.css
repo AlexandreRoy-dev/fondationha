@@ -23,25 +23,26 @@
 }
 
 :root {
-  /* Brand - moodboard Fondation Honorer Aimer */
-  --vert-fonce: #3d4a3a;
-  --vert-sauge: #7a8c6e;
-  --sauge-pale: #b5a88a;
-  --beige: #d4c9bc;
-  --creme: #f0ebe4;
-  --blanc: #faf8f5;
+  /* Palette Fondation Honorer Aimer */
+  --vert-fonce: #425943;
+  --vert-sauge: #7b816b;
+  --sauge-pale: #b6b7a4;
+  --terre: #a78363;
+  --beige: #d4b086;
+  --creme: #e7ddd0;
+  --blanc: #f7f3ee;
   --encre: #2a3228;
 
   --color-bg: var(--creme);
   --color-bg-alt: var(--blanc);
   --color-bg-dark: var(--vert-fonce);
   --color-text: var(--encre);
-  --color-text-muted: #5a6556;
+  --color-text-muted: #5c6458;
   --color-text-on-dark: var(--creme);
-  --color-text-on-dark-muted: rgba(240, 235, 228, 0.78);
+  --color-text-on-dark-muted: rgba(231, 221, 208, 0.78);
   --color-accent: var(--vert-sauge);
-  --color-border: rgba(61, 74, 58, 0.14);
-  --color-border-strong: rgba(61, 74, 58, 0.28);
+  --color-border: rgba(66, 89, 67, 0.14);
+  --color-border-strong: rgba(66, 89, 67, 0.28);
 
   --font-serif: "TT Fors", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-sans: "TT Fors", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -77,8 +78,8 @@
   --radius-lg: 20px;
   --radius-pill: 999px;
 
-  --shadow-soft: 0 12px 40px rgba(61, 74, 58, 0.08);
-  --shadow-card: 0 4px 24px rgba(61, 74, 58, 0.06);
+  --shadow-soft: 0 12px 40px rgba(66, 89, 67, 0.08);
+  --shadow-card: 0 4px 24px rgba(66, 89, 67, 0.06);
 
   --header-h: 5.5rem;
   --max-w: 72rem;
