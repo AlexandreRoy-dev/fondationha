@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/styles.css?v=20261008a">
+  <link rel="stylesheet" href="css/styles.css?v=20261016c">
 </head>
 <body data-page="partenaires">
   <a class="sr-only" href="#contenu">Aller au contenu</a>
@@ -47,37 +47,80 @@
     </div>
   </header>
   <main id="contenu">
-    <section class="page-hero">
+    <section class="page-hero page-hero--partners">
       <div class="container page-hero__content reveal">
         <span class="section__label">Ensemble</span>
         <h1 class="page-hero__title">Partenaires</h1>
         <p class="page-hero__lead">Les organisations qui accompagnent la Fondation Honorer Aimer.</p>
+        <hr class="divider">
       </div>
     </section>
-    <section class="section">
+    <section class="section section--partners" aria-label="Organisations partenaires">
       <div class="container">
-        <div class="partner-tier partner-tier--founder">
-          <h2>Partenaire fondateur</h2>
-          <div class="partner-logos">
-            <a href="https://roymarketing.ca" target="_blank" rel="noopener noreferrer">
-              <img src="assets/images/partners/roy-marketing.png" alt="Roy Marketing" width="599" height="499">
-            </a>
+        <div class="partner-list">
+          <article class="partner-row reveal">
+            <div class="partner-row__stage">
+              <a class="partner-stage-link" href="https://roymarketing.ca" target="_blank" rel="noopener noreferrer">
+                <img src="assets/images/partners/roy-marketing.png" alt="Roy Marketing" width="599" height="499">
+                <span class="sr-only"> (ouvre un nouvel onglet)</span>
+              </a>
+            </div>
+            <div class="partner-row__body">
+              <h2 class="partner-kicker">Partenaire fondateur</h2>
+              <h3>Roy Marketing</h3>
+              <p class="partner-role">Conception web de la fondation.</p>
+              <a class="partner-link" href="https://roymarketing.ca" target="_blank" rel="noopener noreferrer">Visiter le site<span class="sr-only"> de Roy Marketing (ouvre un nouvel onglet)</span></a>
+            </div>
+          </article>
+          <article class="partner-row partner-row--flip reveal">
+            <div class="partner-row__stage">
+              <a class="partner-stage-link" href="https://enconsciencemagazine.ca" target="_blank" rel="noopener noreferrer">
+                <img src="assets/images/partners/en-conscience.png" alt="En Conscience, magazine mieux-être" width="4642" height="1424">
+                <span class="sr-only"> (ouvre un nouvel onglet)</span>
+              </a>
+            </div>
+            <div class="partner-row__body">
+              <h2 class="partner-kicker">Partenaire diffuseur</h2>
+              <h3>En Conscience</h3>
+              <p class="partner-role">Magazine mieux-être.</p>
+              <a class="partner-link" href="https://enconsciencemagazine.ca" target="_blank" rel="noopener noreferrer">Visiter le site<span class="sr-only"> d’En Conscience (ouvre un nouvel onglet)</span></a>
+            </div>
+          </article>
+        </div>
+        <div class="partner-group">
+          <div class="partner-group__head">
+            <h2>Commanditaires</h2>
+          </div>
+          <div class="partner-grid">
+            <article class="partner-card reveal">
+              <div class="partner-card__stage">
+                <img class="partner-logo-svg" src="assets/images/partners/chapiteaux-premium.svg" alt="Chapiteaux Premium" width="250" height="143">
+              </div>
+              <div class="partner-card__body">
+                <h3>Chapiteaux Premium</h3>
+                <p class="partner-role">Accompagne la Fondation Honorer Aimer.</p>
+              </div>
+            </article>
+            <article class="partner-card reveal">
+              <div class="partner-card__stage">
+                <img src="assets/images/partners/au-pont-couve.jpg" alt="Au Pont Couvé" width="1400" height="1082" loading="lazy" decoding="async">
+              </div>
+              <div class="partner-card__body">
+                <h3>Au Pont Couvé</h3>
+                <p class="partner-role">Accompagne la Fondation Honorer Aimer.</p>
+              </div>
+            </article>
           </div>
         </div>
-        <div class="partner-tier">
-          <h2>Partenaire diffuseur</h2>
-          <div class="partner-logos">
-            <img src="assets/images/partners/en-conscience.png" alt="En Conscience, magazine mieux-être" width="4642" height="1424">
-            <p class="partner-caption">Magazine mieux-être</p>
-          </div>
+      </div>
+    </section>
+    <section class="partner-invite" aria-labelledby="devenir-partenaire">
+      <div class="container partner-invite__inner reveal">
+        <div class="partner-invite__copy">
+          <h2 id="devenir-partenaire">Devenir partenaire</h2>
+          <p>Pour accompagner la fondation, écrivez à <a href="mailto:bonjour@fondationha.com">bonjour@fondationha.com</a>.</p>
         </div>
-        <div class="partner-tier">
-          <h2>Commanditaires</h2>
-          <div class="partner-logos partner-logos--sponsors">
-            <img class="partner-logo--lg" src="assets/images/partners/chapiteaux-premium.svg" alt="Chapiteaux Premium" width="250" height="143">
-            <img src="assets/images/partners/au-pont-couve.jpg" alt="Au Pont Couvé" width="1400" height="1082">
-          </div>
-        </div>
+        <a class="btn btn--on-dark" href="mailto:bonjour@fondationha.com?subject=Devenir%20partenaire">Devenir partenaire</a>
       </div>
     </section>
     <nav class="container page-nav" aria-label="Pages suivantes"><a href="ambassadeurs.html">← Ambassadeurs</a><a href="dons.html">Contribuer →</a></nav>
