@@ -4,13 +4,10 @@ import {
   fetchProgrammation,
 } from "../data/programmation.js";
 
-const dateTimeFormat = new Intl.DateTimeFormat("fr-CA", {
+const dateFormat = new Intl.DateTimeFormat("fr-CA", {
   day: "numeric",
   month: "long",
   year: "numeric",
-  hour: "numeric",
-  minute: "2-digit",
-  timeZone: "America/Toronto",
 });
 
 export function initProgrammation() {
@@ -25,7 +22,7 @@ export function initProgrammation() {
 
   const events = fetchProgrammation()
     .slice()
-    .sort((a, b) => String(a.startsAt).localeCompare(String(b.startsAt)));
+    .sort((a, b) => String(a.sortKey).localeCompare(String(b.sortKey)));
 
   let active = "tous";
 
@@ -116,8 +113,8 @@ function renderCard(event) {
   const date = document.createElement("p");
   date.className = "prog-card__date";
   const time = document.createElement("time");
-  time.dateTime = event.startsAt || "";
-  time.textContent = formatWhen(event.startsAt);
+  time.dateTime = event.sortKey || "";
+  time.textContent = formatWhen(event.dateDebut, event.heureDebut);
   date.appendChild(time);
   body.appendChild(date);
 
@@ -140,69 +137,69 @@ function renderCard(event) {
 
   const place = document.createElement("p");
   place.className = "prog-card__place";
-  place.textContent = placeLabel(event.place);
+  place.textContent = placeLabel(event);
   body.appendChild(place);
 
   const spots = document.createElement("p");
   spots.className = "prog-card__spots";
-  const spotsText = spotsLabel(event.spotsRemaining);
+  const spotsText = spotsLabel(event);
   spots.textContent = spotsText;
   if (spotsText === "Complet") spots.classList.add("is-full");
   body.appendChild(spots);
 
-  const link = document.createElement("a");
-  link.className = "btn btn--primary";
-  const ticketUrl = safeTicketUrl(event.ticketUrl);
-  link.href = ticketUrl;
-  link.textContent = "Réserver mon billet";
-  const sr = document.createElement("span");
-  sr.className = "sr-only";
-  sr.textContent = `, ${event.title || "cette activité"}`;
-  link.appendChild(sr);
-  if (ticketUrl === "#") {
-    link.addEventListener("click", (clickEvent) => {
-      clickEvent.preventDefault();
-    });
+  if (!isClosed(event)) {
+    const link = document.createElement("a");
+    link.className = "btn btn--primary";
+    const ticketUrl = safeTicketUrl(event.ticketUrl);
+    link.href = ticketUrl;
+    link.textContent = "Réserver mon billet";
+    const sr = document.createElement("span");
+    sr.className = "sr-only";
+    sr.textContent = `, ${event.title || "cette activité"}`;
+    link.appendChild(sr);
+    if (ticketUrl === "#") {
+      link.addEventListener("click", (clickEvent) => {
+        clickEvent.preventDefault();
+      });
+    }
+    body.appendChild(link);
   }
-  body.appendChild(link);
 
   article.appendChild(body);
   item.appendChild(article);
   return item;
 }
 
-function formatWhen(iso) {
-  const date = new Date(iso);
-  if (Number.isNaN(date.getTime())) return "Date à confirmer";
-  const parts = dateTimeFormat.formatToParts(date);
-  const pick = (type) => parts.find((part) => part.type === type)?.value || "";
-  const day = pick("day");
-  const month = pick("month");
-  const year = pick("year");
-  const hour = pick("hour");
-  const minute = pick("minute");
-  return `${day} ${month} ${year}, ${hour} h ${minute}`;
+function formatWhen(dateValue, timeText) {
+  const match = String(dateValue || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
+  const time = typeof timeText === "string" ? timeText.trim() : "";
+  if (!match) return time || "Date à confirmer";
+  const date = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+  const dateLabel = dateFormat.format(date);
+  return time ? `${dateLabel}, ${time}` : dateLabel;
 }
 
-function placeLabel(place) {
-  if (!place || place.mode === "en-ligne") {
-    const platform = place && place.onlinePlatform;
-    if (platform === "zoom") return "En ligne, Zoom";
-    if (platform === "meet") return "En ligne, Google Meet";
+function placeLabel(event) {
+  const lieu = (event.lieu || "").trim();
+  const online =
+    event.category === "ateliers_en_ligne" || lieu.toLowerCase() === "en ligne";
+  if (online) {
+    if (event.lienEnLigne) return "En ligne";
     return "En ligne (Zoom ou Meet à confirmer)";
   }
-  return place.label || "Lieu à confirmer";
+  return lieu || "Lieu à confirmer";
 }
 
-function spotsLabel(value) {
-  if (value === null || value === undefined || value === "") {
-    return "Places à confirmer";
-  }
-  const number = Number(value);
-  if (!Number.isFinite(number)) return "Places à confirmer";
-  if (number <= 0) return "Complet";
-  if (number === 1) return "1 place restante";
-  return `${number} places restantes`;
+function isClosed(event) {
+  if (event.statut === "complet") return true;
+  return typeof event.placesRestantes === "number" && event.placesRestantes <= 0;
+}
+
+function spotsLabel(event) {
+  if (isClosed(event)) return "Complet";
+  if (event.placesRestantes == null) return "Places à confirmer";
+  if (event.placesRestantes === 1) return "1 place restante";
+  return `${event.placesRestantes} places restantes`;
 }
 
 function countLabel(count) {

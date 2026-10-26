@@ -1,208 +1,300 @@
 /**
  * Programmation de la Fondation Honorer Aimer.
  *
- * EXEMPLE. Les fiches de ce fichier ne sont pas des activités réelles.
- * Elles servent à construire la page en attendant l'objet personnalisé
- * GoHighLevel « Programmation ». Chaque fiche d'exemple a example: true,
- * ce qui affiche le badge « Exemple » sur la carte.
+ * EXEMPLE. SAMPLE_RECORDS n'est pas la programmation réelle.
+ * Chaque fiche a example: true, ce qui affiche le badge « Exemple ».
  *
- * Forme d'une fiche, alignée sur les champs prévus du CRM :
- * - title            titre
- * - category         catégorie (voir CATEGORIES)
- * - startsAt         date et heure, ISO 8601, fuseau America/Toronto
- * - place.mode       "lieu" ou "en-ligne"
- * - place.label      nom du lieu, ou libellé pour le virtuel
- * - place.onlinePlatform
- *                    TODO(client): "zoom" ou "meet". Laisser null.
- *                    Ne pas inventer l'outil ni un lien de rencontre.
- * - description      texte court
- * - image            { src, alt } ou null
- *                    TODO(crm): URL de l'image quand le champ existe.
- * - capacity         capacité totale (nombre)
- *                    TODO(client): capacité réelle. Les nombres ci-dessous
- *                    sont fictifs, uniquement pour l'exemple.
- * - spotsRemaining   places restantes (nombre). 0 affiche « Complet ».
- *                    TODO(client): nombre réel. Les nombres ci-dessous
- *                    sont fictifs.
- * - ticketUrl        URL de billetterie. « # » est un placeholder.
- * - example          true tant que la fiche n'est pas une donnée CRM
+ * Objet GoHighLevel déjà créé :
+ * - sous-compte vytdZ9CJafKxgnpVRP9U
+ * - id 6adea9c73f6d09acc64bf0bd
+ * - clé custom_objects.programmations
  *
- * TODO(client): ne pas rédiger ici de courriel (confirmation, rappel,
- * complet). Le client doit fournir ces textes.
- * TODO(crm): quand l'objet existe, remplacer SAMPLE_EVENTS par
- * fetchProgrammation() et mapProgrammationRecord().
+ * Le spec compte 18 clés (nom, champ principal, plus 17 champs).
+ * L'objet en ligne est annoncé à 17 champs. mapProgrammationRecord()
+ * lit chaque suffixe du spec. Un champ absent sur l'enregistrement
+ * reste vide. Rien n'est inventé pour le remplacer.
+ *
+ * Intégration prévue, sans appel depuis le navigateur.
+ * La clé Private Integration est en lecture seule et ne doit jamais
+ * être exposée côté client (aucun jeton dans ce fichier).
+ * Chemin : un proxy serveur ou une fonction serverless, ou un export
+ * au moment du build, lit les enregistrements de
+ * custom_objects.programmations. Le jeton reste sur le serveur.
+ * La réponse publique ne garde que les enregistrements dont le statut
+ * est publie ou complet. fetchProgrammation() remplace alors
+ * SAMPLE_RECORDS par ces enregistrements, chacun passé à
+ * mapProgrammationRecord().
+ *
+ * TODO(client): ne pas remplir ici places_maximum, places_reservees,
+ * places_restantes, lien_en_ligne (Zoom ou Meet), lien_paiement,
+ * contribution_suggeree, ni aucun texte de courriel.
  */
+
+export const PROGRAMMATION_OBJECT = {
+  locationId: "vytdZ9CJafKxgnpVRP9U",
+  objectId: "6adea9c73f6d09acc64bf0bd",
+  key: "custom_objects.programmations",
+};
+
+/** Suffixes du spec. La clé complète est custom_objects.programmations.<suffixe>. */
+export const FIELD_SUFFIXES = [
+  "nom",
+  "date_debut",
+  "date_fin",
+  "heure_debut",
+  "heure_fin",
+  "categorie",
+  "animatrices",
+  "lien_en_ligne",
+  "lieu",
+  "contribution_suggeree",
+  "places_maximum",
+  "places_reservees",
+  "places_restantes",
+  "lien_paiement",
+  "statut",
+  "notes",
+  "description",
+  "image_principale",
+];
 
 export const CATEGORIES = [
   { id: "tous", label: "Tous" },
-  { id: "journee-bien-etre", label: "Journées bien-être" },
-  { id: "atelier-creatif", label: "Ateliers créatifs" },
-  { id: "atelier-en-ligne", label: "Ateliers en ligne" },
+  { id: "journees_bien_etre", label: "Journées bien-être" },
+  { id: "ateliers_creatifs", label: "Ateliers créatifs" },
+  { id: "ateliers_en_ligne", label: "Ateliers en ligne" },
 ];
 
 export const CATEGORY_LABELS = {
-  "journee-bien-etre": "Journée bien-être",
-  "atelier-creatif": "Atelier créatif",
-  "atelier-en-ligne": "Atelier en ligne",
+  journees_bien_etre: "Journées bien-être",
+  ateliers_creatifs: "Ateliers créatifs",
+  ateliers_en_ligne: "Ateliers en ligne",
 };
 
-/** @type {Array<ProgrammationEvent>} */
-export const SAMPLE_EVENTS = [
-  {
-    id: "exemple-journee-salle",
-    example: true,
-    title: "Journée bien-être en salle",
-    category: "journee-bien-etre",
-    startsAt: "2026-11-14T09:30:00-05:00",
-    place: {
-      mode: "lieu",
-      label: "Lieu à confirmer",
-      onlinePlatform: null,
-    },
+const CATEGORY_ALIASES = {
+  journees_bien_etre: "journees_bien_etre",
+  "journées bien-être": "journees_bien_etre",
+  "journees bien-etre": "journees_bien_etre",
+  ateliers_creatifs: "ateliers_creatifs",
+  "ateliers créatifs": "ateliers_creatifs",
+  "ateliers creatifs": "ateliers_creatifs",
+  ateliers_en_ligne: "ateliers_en_ligne",
+  "ateliers en ligne": "ateliers_en_ligne",
+};
+
+const STATUT_ALIASES = {
+  brouillon: "brouillon",
+  publie: "publie",
+  publié: "publie",
+  complet: "complet",
+  annule: "annule",
+  annulé: "annule",
+};
+
+const PUBLIC_STATUTS = new Set(["publie", "complet"]);
+
+/**
+ * Fiches d'exemple, dans la forme d'un enregistrement GHL
+ * (id + properties, clés complètes).
+ * Les champs EN ATTENTE sont null. Ce ne sont pas des valeurs réelles.
+ */
+export const SAMPLE_RECORDS = [
+  sampleRecord("exemple-journee-salle", {
+    nom: "Journée bien-être en salle",
+    categorie: "journees_bien_etre",
+    date_debut: "2026-11-14",
+    heure_debut: "9 h 30",
+    lieu: "Lieu à confirmer",
+    statut: "publie",
     description: "Exemple de journée pour ralentir et se déposer, en salle.",
-    image: null,
-    capacity: 18,
-    spotsRemaining: 6,
-    ticketUrl: "#",
-  },
-  {
-    id: "exemple-respiration-ligne",
-    example: true,
-    title: "Atelier de respiration en ligne",
-    category: "atelier-en-ligne",
-    startsAt: "2026-11-18T19:00:00-05:00",
-    place: {
-      mode: "en-ligne",
-      label: "En ligne",
-      // TODO(client): Zoom ou Meet. Ne pas deviner.
-      onlinePlatform: null,
-    },
+  }),
+  sampleRecord("exemple-respiration-ligne", {
+    nom: "Atelier de respiration en ligne",
+    categorie: "ateliers_en_ligne",
+    date_debut: "2026-11-18",
+    heure_debut: "19 h 00",
+    lieu: "En ligne",
+    statut: "publie",
     description: "Exemple d’atelier tenu en ligne. L’outil de rencontre n’est pas choisi.",
-    image: null,
-    capacity: 40,
-    spotsRemaining: 11,
-    ticketUrl: "#",
-  },
-  {
-    id: "exemple-ecriture",
-    example: true,
-    title: "Atelier d’écriture",
-    category: "atelier-creatif",
-    startsAt: "2026-11-21T13:30:00-05:00",
-    place: {
-      mode: "lieu",
-      label: "Lieu à confirmer",
-      onlinePlatform: null,
-    },
+  }),
+  sampleRecord("exemple-ecriture", {
+    nom: "Atelier d’écriture",
+    categorie: "ateliers_creatifs",
+    date_debut: "2026-11-21",
+    heure_debut: "13 h 30",
+    lieu: "Lieu à confirmer",
+    statut: "publie",
     description: "Exemple d’atelier d’écriture, en salle.",
-    image: null,
-    capacity: 10,
-    spotsRemaining: 1,
-    ticketUrl: "#",
-  },
-  {
-    id: "exemple-journee-complet",
-    example: true,
-    title: "Journée bien-être en petit groupe",
-    category: "journee-bien-etre",
-    startsAt: "2026-12-05T10:00:00-05:00",
-    place: {
-      mode: "lieu",
-      label: "Lieu à confirmer",
-      onlinePlatform: null,
-    },
+  }),
+  sampleRecord("exemple-journee-complet", {
+    nom: "Journée bien-être en petit groupe",
+    categorie: "journees_bien_etre",
+    date_debut: "2026-12-05",
+    heure_debut: "10 h 00",
+    lieu: "Lieu à confirmer",
+    statut: "complet",
     description: "Exemple de journée en petit groupe, en salle.",
-    image: null,
-    capacity: 14,
-    spotsRemaining: 0,
-    ticketUrl: "#",
-  },
-  {
-    id: "exemple-parole-ligne",
-    example: true,
-    title: "Atelier de parole en ligne",
-    category: "atelier-en-ligne",
-    startsAt: "2026-12-09T19:00:00-05:00",
-    place: {
-      mode: "en-ligne",
-      label: "En ligne",
-      onlinePlatform: null,
-    },
+  }),
+  sampleRecord("exemple-parole-ligne", {
+    nom: "Atelier de parole en ligne",
+    categorie: "ateliers_en_ligne",
+    date_debut: "2026-12-09",
+    heure_debut: "19 h 00",
+    lieu: "En ligne",
+    statut: "publie",
     description: "Exemple d’atelier tenu en ligne. L’outil de rencontre n’est pas choisi.",
-    image: null,
-    capacity: 25,
-    spotsRemaining: 4,
-    ticketUrl: "#",
-  },
-  {
-    id: "exemple-creation",
-    example: true,
-    title: "Atelier de création manuelle",
-    category: "atelier-creatif",
-    startsAt: "2027-01-16T14:00:00-05:00",
-    place: {
-      mode: "lieu",
-      label: "Lieu à confirmer",
-      onlinePlatform: null,
-    },
+  }),
+  sampleRecord("exemple-creation", {
+    nom: "Atelier de création manuelle",
+    categorie: "ateliers_creatifs",
+    date_debut: "2027-01-16",
+    heure_debut: "14 h 00",
+    lieu: "Lieu à confirmer",
+    statut: "publie",
     description: "Exemple d’atelier de création manuelle, en salle.",
-    image: null,
-    capacity: 8,
-    spotsRemaining: 3,
-    ticketUrl: "#",
-  },
+  }),
 ];
 
 /**
- * Adaptateur pour un enregistrement de l'objet GoHighLevel « Programmation ».
- * Les noms de champs CRM sont des propositions, à confirmer.
- *
- * TODO(crm): remplacer les clés record.* par les vrais champs de l'objet.
- * TODO(client): capacity, spotsRemaining, onlinePlatform, ticketUrl,
- * et les textes de courriel restent vides tant qu'ils ne sont pas fournis.
+ * Adaptateur d'un enregistrement de custom_objects.programmations.
+ * Accepte properties avec la clé complète ou le suffixe seul.
  *
  * @param {Record<string, unknown>} record
  */
 export function mapProgrammationRecord(record) {
-  const imageUrl = typeof record.imageUrl === "string" ? record.imageUrl : "";
-  const platform = record.onlinePlatform;
+  const source = record || {};
+  const categorie = normalizeCategory(readField(source, "categorie"));
+  const statut = normalizeStatut(readField(source, "statut"));
+  const dateDebut = text(readField(source, "date_debut"));
+  const heureDebut = text(readField(source, "heure_debut"));
+  const lieu = text(readField(source, "lieu"));
+  const lienEnLigne = text(readField(source, "lien_en_ligne"));
+  const lienPaiement = text(readField(source, "lien_paiement"));
+
   return {
-    id: String(record.id || ""),
-    example: false,
-    title: typeof record.title === "string" ? record.title : "",
-    category: typeof record.category === "string" ? record.category : "",
-    startsAt: typeof record.startsAt === "string" ? record.startsAt : "",
-    place: {
-      mode: record.placeMode === "en-ligne" ? "en-ligne" : "lieu",
-      label: typeof record.placeLabel === "string" ? record.placeLabel : "",
-      onlinePlatform: platform === "zoom" || platform === "meet" ? platform : null,
-    },
-    description: typeof record.description === "string" ? record.description : "",
-    image: imageUrl
-      ? {
-          src: imageUrl,
-          alt: typeof record.imageAlt === "string" ? record.imageAlt : "",
-        }
-      : null,
-    capacity: toCount(record.capacity),
-    spotsRemaining: toCount(record.spotsRemaining),
-    ticketUrl: typeof record.ticketUrl === "string" && record.ticketUrl ? record.ticketUrl : "#",
+    id: String(source.id || ""),
+    example: source.example === true,
+    title: text(readField(source, "nom")),
+    category: categorie,
+    dateDebut,
+    heureDebut,
+    dateFin: text(readField(source, "date_fin")),
+    heureFin: text(readField(source, "heure_fin")),
+    sortKey: sortKey(dateDebut, heureDebut),
+    animatrices: toList(readField(source, "animatrices")),
+    lienEnLigne,
+    lieu,
+    contribution: toMoney(readField(source, "contribution_suggeree")),
+    placesMaximum: toCount(readField(source, "places_maximum")),
+    placesReservees: toCount(readField(source, "places_reservees")),
+    placesRestantes: toCount(readField(source, "places_restantes")),
+    ticketUrl: lienPaiement || "#",
+    statut,
+    notes: text(readField(source, "notes")),
+    description: text(readField(source, "description")),
+    image: imageFromField(readField(source, "image_principale")),
   };
 }
 
 /**
- * Point d'entrée unique pour la page.
- * TODO(crm): lire l'objet personnalisé « Programmation » et retourner
- * records.map(mapProgrammationRecord). Ne pas appeler l'API tant que
- * l'objet n'est pas en place.
+ * Point d'entrée de la page. Pas d'appel réseau.
+ * TODO(crm): remplacer SAMPLE_RECORDS par la réponse du proxy
+ * ou de l'export de build, puis mapper.
  */
 export function fetchProgrammation() {
-  return SAMPLE_EVENTS;
+  return SAMPLE_RECORDS.map(mapProgrammationRecord).filter((event) =>
+    PUBLIC_STATUTS.has(event.statut)
+  );
+}
+
+function sampleRecord(id, values) {
+  const properties = {};
+  FIELD_SUFFIXES.forEach((suffix) => {
+    properties[fieldKey(suffix)] = Object.prototype.hasOwnProperty.call(values, suffix)
+      ? values[suffix]
+      : null;
+  });
+  return { id, example: true, properties };
+}
+
+function fieldKey(suffix) {
+  return `${PROGRAMMATION_OBJECT.key}.${suffix}`;
+}
+
+function readField(record, suffix) {
+  const full = fieldKey(suffix);
+  const bags = [record.properties, record].filter(
+    (bag) => bag && typeof bag === "object"
+  );
+  for (const bag of bags) {
+    if (Object.prototype.hasOwnProperty.call(bag, full) && bag[full] != null && bag[full] !== "") {
+      return bag[full];
+    }
+    if (Object.prototype.hasOwnProperty.call(bag, suffix) && bag[suffix] != null && bag[suffix] !== "") {
+      return bag[suffix];
+    }
+  }
+  return null;
+}
+
+function text(value) {
+  if (value == null) return "";
+  return String(value).trim();
+}
+
+function normalizeCategory(value) {
+  const raw = text(value).toLowerCase();
+  return CATEGORY_ALIASES[raw] || "";
+}
+
+function normalizeStatut(value) {
+  const raw = text(value).toLowerCase();
+  return STATUT_ALIASES[raw] || "";
+}
+
+function toList(value) {
+  if (Array.isArray(value)) {
+    return value.map((item) => text(item)).filter(Boolean);
+  }
+  const single = text(value);
+  return single ? [single] : [];
 }
 
 function toCount(value) {
-  if (value === null || value === undefined || value === "") return null;
+  if (value == null || value === "") return null;
   const number = Number(value);
   if (!Number.isFinite(number)) return null;
   return Math.max(0, Math.round(number));
+}
+
+function toMoney(value) {
+  if (value == null || value === "") return null;
+  const number = Number(String(value).replace(",", "."));
+  if (!Number.isFinite(number)) return null;
+  return number;
+}
+
+function imageFromField(value) {
+  if (!value) return null;
+  if (typeof value === "string") return { src: value, alt: "" };
+  if (Array.isArray(value)) return imageFromField(value[0]);
+  if (typeof value === "object") {
+    const src = text(value.url || value.src || value.fileUrl);
+    if (!src) return null;
+    return { src, alt: text(value.alt) };
+  }
+  return null;
+}
+
+function sortKey(dateValue, timeText) {
+  const day = text(dateValue).match(/^(\d{4}-\d{2}-\d{2})/);
+  const date = day ? day[1] : "9999-99-99";
+  const clock = parseHeure(timeText) || "00:00";
+  return `${date}T${clock}`;
+}
+
+function parseHeure(timeText) {
+  const match = text(timeText).match(/(\d{1,2})\s*h(?:\s*(\d{2}))?/i);
+  if (!match) return "";
+  return `${match[1].padStart(2, "0")}:${match[2] || "00"}`;
 }
