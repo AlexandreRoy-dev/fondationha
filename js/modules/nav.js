@@ -1,3 +1,5 @@
+const ABOUT_PAGES = new Set(["a-propos", "mission", "approche", "conseil"]);
+
 export function initNav() {
   const header = document.querySelector(".site-header");
   const toggle = document.querySelector(".nav-toggle");
@@ -7,11 +9,38 @@ export function initNav() {
 
   if (!header || !toggle || !nav) return;
 
+  const subItems = [...nav.querySelectorAll(".nav-item--sub")];
+
+  const closeSub = (item, { restoreFocus = false } = {}) => {
+    const button = item.querySelector(".nav-sub__toggle");
+    const panel = item.querySelector(".nav-sub");
+    item.classList.remove("is-open");
+    if (button) button.setAttribute("aria-expanded", "false");
+    if (panel) panel.hidden = true;
+    if (restoreFocus && button) button.focus();
+  };
+
+  const closeSubs = (options) => {
+    subItems.forEach((item) => closeSub(item, options));
+  };
+
+  const openSub = (item) => {
+    subItems.forEach((other) => {
+      if (other !== item) closeSub(other);
+    });
+    const button = item.querySelector(".nav-sub__toggle");
+    const panel = item.querySelector(".nav-sub");
+    item.classList.add("is-open");
+    if (button) button.setAttribute("aria-expanded", "true");
+    if (panel) panel.hidden = false;
+  };
+
   const setOpen = (open) => {
     toggle.setAttribute("aria-expanded", String(open));
     toggle.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
     nav.classList.toggle("is-open", open);
     header.classList.toggle("is-nav-open", open);
+    if (!open) closeSubs();
     if (mobileQuery.matches) {
       nav.toggleAttribute("inert", !open);
     } else {
@@ -45,8 +74,66 @@ export function initNav() {
     });
   });
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") setOpen(false);
+  subItems.forEach((item) => {
+    const button = item.querySelector(".nav-sub__toggle");
+    const panel = item.querySelector(".nav-sub");
+    if (!button || !panel) return;
+
+    button.addEventListener("click", () => {
+      const expanded = button.getAttribute("aria-expanded") === "true";
+      if (expanded) closeSub(item);
+      else openSub(item);
+    });
+
+    button.addEventListener("keydown", (event) => {
+      if (event.key !== "ArrowDown") return;
+      event.preventDefault();
+      openSub(item);
+      const first = panel.querySelector("a");
+      if (first) first.focus();
+    });
+
+    panel.addEventListener("keydown", (event) => {
+      const items = [...panel.querySelectorAll("a")];
+      const index = items.indexOf(document.activeElement);
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        const next = items[index + 1] || items[0];
+        if (next) next.focus();
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        if (index <= 0) button.focus();
+        else items[index - 1].focus();
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        if (items[0]) items[0].focus();
+      } else if (event.key === "End") {
+        event.preventDefault();
+        const last = items[items.length - 1];
+        if (last) last.focus();
+      }
+    });
+
+    item.addEventListener("focusout", () => {
+      window.setTimeout(() => {
+        if (!item.contains(document.activeElement)) closeSub(item);
+      }, 0);
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!nav.contains(event.target)) closeSubs();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    const openItem = subItems.find((item) => item.classList.contains("is-open"));
+    if (openItem) {
+      event.stopPropagation();
+      closeSub(openItem, { restoreFocus: true });
+      return;
+    }
+    setOpen(false);
   });
 
   const onScroll = () => {
@@ -63,6 +150,11 @@ export function initNav() {
         link.setAttribute("aria-current", "page");
       }
     });
+    if (ABOUT_PAGES.has(currentPage)) {
+      nav.querySelectorAll('.nav-sub__toggle[data-nav-group="a-propos"]').forEach((button) => {
+        button.setAttribute("aria-current", "true");
+      });
+    }
   }
 
   // Keep section highlighting available for in-page navigation.

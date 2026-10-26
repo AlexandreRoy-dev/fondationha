@@ -23,6 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/styles.css?v=20261008a">
+  <link rel="stylesheet" href="css/menu.css?v=20261026a">
 </head>
 <body data-page="ambassadeurs">
   <a class="sr-only" href="#contenu">Aller au contenu</a>
@@ -33,13 +34,17 @@
       <nav class="site-nav" id="navigation" aria-label="Navigation principale">
         <ul class="site-nav__list">
           <li><a href="index.html" data-page="accueil">Accueil</a></li>
-          <li><a href="mission.html" data-page="mission">Mission</a></li>
-          <li><a href="approche.html" data-page="approche">Approche</a></li>
-          <li><a href="a-propos.html" data-page="a-propos">À propos</a></li>
-          <li><a href="conseil.html" data-page="conseil">Conseil</a></li>
+          <li class="nav-item nav-item--sub">
+            <button type="button" class="nav-sub__toggle" aria-expanded="false" aria-controls="nav-a-propos" data-nav-group="a-propos">À propos<span class="nav-sub__chevron" aria-hidden="true"></span></button>
+            <ul class="nav-sub" id="nav-a-propos" hidden>
+              <li><a href="mission.html" data-page="mission">Mission</a></li>
+              <li><a href="approche.html" data-page="approche">Approche</a></li>
+              <li><a href="conseil.html" data-page="conseil">Conseil</a></li>
+            </ul>
+          </li>
           <li><a href="ambassadeurs.html" data-page="ambassadeurs">Ambassadeurs</a></li>
           <li><a href="partenaires.html" data-page="partenaires">Partenaires</a></li>
-          <li><a class="nav-link--dons" href="dons.html" data-page="dons">Dons</a></li>
+          <li><a href="programmation.html" data-page="programmation">Programmation</a></li>
         </ul>
         <div class="site-nav__cta"><a class="btn btn--primary" href="dons.html">Contribuer</a></div>
       </nav>
@@ -118,7 +123,7 @@
       </div>
     </div>
   </footer>
-  <script type="module" src="js/main.js?v=20260825c"></script>
+  <script type="module" src="js/main.js?v=20261026a"></script>
   <script>document.getElementById("year").textContent = String(new Date().getFullYear());</script>
 </body>
 </html>
