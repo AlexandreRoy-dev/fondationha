@@ -1,5 +1,6 @@
 import { initDonateLinks, initDonateForms } from "./modules/donate.js";
 import { initNav } from "./modules/nav.js";
+import { initProgrammation } from "./modules/programmation.js";
 import { initReveal } from "./modules/reveal.js";
 
 function initMerciBanner() {
@@ -14,6 +15,7 @@ function initMerciBanner() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  initProgrammation();
   initNav();
   initReveal();
   initDonateForms();

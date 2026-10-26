@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programmation | Fondation Honorer Aimer</title>
+  <meta name="description" content="Journées bien-être, ateliers créatifs et ateliers en ligne de la Fondation Honorer Aimer. Les fiches affichées sont des exemples.">
+  <meta name="theme-color" content="#425943">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_CA">
+  <meta property="og:title" content="Programmation | Fondation Honorer Aimer">
+  <meta property="og:description" content="Journées bien-être, ateliers créatifs et ateliers en ligne de la Fondation Honorer Aimer. Les fiches affichées sont des exemples.">
+  <meta property="og:image" content="https://fondationha.com/assets/images/og-share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://fondationha.com/programmation.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://fondationha.com/assets/images/og-share.png">
+  <link rel="canonical" href="https://fondationha.com/programmation.html">
+  <link rel="icon" href="assets/images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/styles.css?v=20261008a">
+  <link rel="stylesheet" href="css/menu.css?v=20261026a">
+</head>
+<body data-page="programmation">
+  <a class="sr-only" href="#contenu">Aller au contenu</a>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="index.html" aria-label="Fondation Honorer Aimer - Accueil"><img src="assets/images/logo.png" alt="Fondation Honorer Aimer" width="200" height="85"></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navigation" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+      <nav class="site-nav" id="navigation" aria-label="Navigation principale">
+        <ul class="site-nav__list">
+          <li><a href="index.html" data-page="accueil">Accueil</a></li>
+          <li class="nav-item nav-item--sub">
+            <button type="button" class="nav-sub__toggle" aria-expanded="false" aria-controls="nav-a-propos" data-nav-group="a-propos">À propos<span class="nav-sub__chevron" aria-hidden="true"></span></button>
+            <ul class="nav-sub" id="nav-a-propos" hidden>
+              <li><a href="mission.html" data-page="mission">Mission</a></li>
+              <li><a href="approche.html" data-page="approche">Approche</a></li>
+              <li><a href="conseil.html" data-page="conseil">Conseil</a></li>
+            </ul>
+          </li>
+          <li><a href="ambassadeurs.html" data-page="ambassadeurs">Ambassadeurs</a></li>
+          <li><a href="partenaires.html" data-page="partenaires">Partenaires</a></li>
+          <li><a href="programmation.html" data-page="programmation">Programmation</a></li>
+        </ul>
+        <div class="site-nav__cta"><a class="btn btn--primary" href="dons.html">Contribuer</a></div>
+      </nav>
+      <div class="header-actions"><a class="btn btn--primary" href="dons.html">Contribuer</a></div>
+    </div>
+  </header>
+  <main id="contenu">
+    <section class="page-hero">
+      <div class="container page-hero__content reveal">
+        <span class="section__label">Activités</span>
+        <h1 class="page-hero__title">Programmation</h1>
+        <p class="page-hero__lead">Journées bien-être, ateliers créatifs et ateliers en ligne. Les fiches affichées sont des exemples, en attendant la programmation réelle.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container" data-programmation>
+        <p class="prog-filters__label" id="prog-filters-label">Filtrer</p>
+        <div class="prog-filters" role="group" aria-labelledby="prog-filters-label" data-prog-filters></div>
+        <p class="prog-status" data-prog-status aria-live="polite"></p>
+        <p class="prog-empty" data-prog-empty hidden>Aucune activité dans cette catégorie.</p>
+        <ul class="prog-list" data-prog-list aria-label="Activités"></ul>
+        <noscript>
+          <p>Activez JavaScript pour afficher les activités.</p>
+        </noscript>
+      </div>
+    </section>
+    <nav class="container page-nav" aria-label="Pages suivantes"><a href="index.html">← Accueil</a><a href="dons.html">Contribuer →</a></nav>
+  </main>
+  <footer class="site-footer"><div class="container"><div class="footer__grid"><div class="footer__brand"><img src="assets/images/logo-light.png" alt="Fondation Honorer Aimer" width="200" height="85"><p>Ensemble, vivons le deuil autrement.</p></div><div><p class="footer__heading">Explorer</p><ul class="footer__links"><li><a href="mission.html">Mission et vision</a></li><li><a href="approche.html">Notre approche</a></li><li><a href="a-propos.html">À propos</a></li><li><a href="conseil.html">Conseil d’administration</a></li><li><a href="ambassadeurs.html">Ambassadeurs</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="dons.html">Contribuer</a></li></ul></div><div><p class="footer__heading">Contact</p><ul class="footer__links"><li><a href="mailto:bonjour@fondationha.com">bonjour@fondationha.com</a></li><li>Québec, Canada</li></ul></div></div><div class="footer__bottom"><p>© <span id="year">2026</span> Fondation Honorer Aimer. Tous droits réservés.</p><p>Conception web par <a href="https://roymarketing.ca" target="_blank" rel="noopener noreferrer">Roy Marketing</a></p></div></div></footer>
+  <script type="module" src="js/main.js?v=20261026a"></script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
