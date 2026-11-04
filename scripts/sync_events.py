@@ -364,8 +364,26 @@ def make_slug(title: str, date: str) -> str:
 EXT_BY_TYPE = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp", "image/gif": ".gif", "image/avif": ".avif"}
 
 
+STATS = {"non_publie": 0, "statut_exclu": 0, "sans_titre": 0, "images_ok": 0, "images_auth": 0, "images_echec": 0}
+
+
 def download_image(url: str, dest_stem: Path, token: str | None) -> str | None:
-    """Telecharge url vers dest_stem.<ext>. Retourne le chemin relatif au site."""
+    """Telecharge url vers dest_stem.<ext>. Retourne le chemin relatif au site.
+
+    Essaie d'abord sans authentification (URL publiques du stockage GHL),
+    puis avec le jeton si le premier essai echoue.
+    """
+    if os.environ.get("SKIP_IMAGES") == "1":
+        return None
+    result = _download_image(url, dest_stem, token)
+    if result:
+        STATS["images_ok"] += 1
+    else:
+        STATS["images_echec"] += 1
+    return result
+
+
+def _download_image(url: str, dest_stem: Path, token: str | None) -> str | None:
     if os.environ.get("SKIP_IMAGES") == "1":
         return None
     for auth in (False, True):
@@ -380,8 +398,10 @@ def download_image(url: str, dest_stem: Path, token: str | None) -> str | None:
                 ctype = (resp.headers.get("Content-Type") or "").split(";")[0].strip().lower()
                 data = resp.read(MAX_IMAGE_BYTES + 1)
         except (urllib.error.HTTPError, urllib.error.URLError) as err:
-            print(f"Image non telechargee ({err}) : {url}", file=sys.stderr)
+            print(f"Image non telechargee ({'avec' if auth else 'sans'} jeton, {err}) : {url.split('?')[0]}", file=sys.stderr)
             continue
+        if auth:
+            STATS["images_auth"] += 1
         if len(data) > MAX_IMAGE_BYTES:
             print(f"Image trop lourde, ignoree : {url}", file=sys.stderr)
             return None
@@ -404,15 +424,18 @@ def download_image(url: str, dest_stem: Path, token: str | None) -> str | None:
 def build_event(record: dict, labels: dict[str, str], token: str | None):
     r = FieldReader(record, labels)
     if not is_yes(r.get("publier")):
+        STATS["non_publie"] += 1
         return None
     statut_raw = clean_text(r.get("statut"))
     statut = STATUT_ALIASES.get(norm(statut_raw), norm(statut_raw))
     if statut in PUBLIC_STATUTS_EXCLUDED:
+        STATS["statut_exclu"] += 1
         return None
 
     title = clean_text(r.get("title"))
     date_debut = to_date(r.get("date_debut"))
     if not title:
+        STATS["sans_titre"] += 1
         return None
     slug = make_slug(title, date_debut)
 
@@ -502,6 +525,8 @@ def main() -> int:
         for d in IMG_DIR.iterdir():
             if d.is_dir() and d.name not in slugs:
                 shutil.rmtree(d)
+
+    print("Bilan : " + ", ".join(f"{k}={v}" for k, v in STATS.items()) + f", publies={len(events)}")
 
     out = {"source": OBJECT_KEY, "count": len(events), "events": events}
     text = json.dumps(out, ensure_ascii=False, indent=2) + "\n"
