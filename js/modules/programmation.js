@@ -51,6 +51,12 @@ export async function initProgrammation() {
     const visible = events.filter((event) => categoryId === "tous" || event.category === categoryId);
     listEl.replaceChildren(...visible.map(renderCard));
     emptyEl.hidden = visible.length !== 0;
+    if (events.length === 0) {
+      emptyEl.textContent = "La prochaine programmation sera annoncée bientôt. Revenez nous voir.";
+      statusEl.textContent = "";
+      filtersEl.hidden = true;
+      return;
+    }
     statusEl.textContent = countLabel(visible.length);
   };
 
