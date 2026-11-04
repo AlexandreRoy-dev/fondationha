@@ -8,7 +8,8 @@ data/events.json, trie par date.
 
 Variables d'environnement :
   GHL_FHA_TOKEN     jeton Private Integration (obligatoire, lecture seule suffit :
-                    objects/schema.readonly et objects/record.readonly)
+                    objects/schema.readonly, objects/record.readonly,
+                    medias.readonly pour les images au besoin)
   GHL_LOCATION_ID   sous-compte (defaut : vytdZ9CJafKxgnpVRP9U)
   GHL_OBJECT_KEY    cle de l'objet (defaut : custom_objects.programmations)
   MOCK_RECORDS      chemin d'un JSON de test {"records": [...]} au lieu de l'API
@@ -56,64 +57,60 @@ MAX_TICKETS = 5
 # Le premier qui a une valeur gagne. Un champ introuvable reste vide.
 # ---------------------------------------------------------------------------
 FIELD_MAP: dict[str, dict[str, list[str]]] = {
+    # Cles reelles de custom_objects.programmations (schema lu le 2026-11-04),
+    # suivies d'alternatives au cas ou un champ serait recree ou renomme.
     "title": {
-        "keys": ["nom_de_levenement", "nom_de_l_evenement", "nom_evenement", "nom", "name", "titre"],
+        "keys": ["nom_de_l_v_nement", "nom_de_levenement", "nom_de_l_evenement", "nom", "titre"],
         "labels": ["Nom de l'événement", "Nom", "Titre"],
     },
-    "date_debut": {"keys": ["date_de_debut", "date_debut", "debut"], "labels": ["Date de début"]},
-    "date_fin": {"keys": ["date_de_fin", "date_fin", "fin"], "labels": ["Date de fin"]},
+    "date_debut": {"keys": ["date_de_debut", "date_debut"], "labels": ["Date de début"]},
+    "date_fin": {"keys": ["date_de_fin", "date_fin"], "labels": ["Date de fin"]},
     "heure_debut": {"keys": ["heure_de_debut", "heure_debut"], "labels": ["Heure de début"]},
     "heure_fin": {"keys": ["heure_de_fin", "heure_fin"], "labels": ["Heure de fin"]},
     "lieu": {"keys": ["lieu"], "labels": ["Lieu"]},
-    "adresse": {"keys": ["adresse", "address"], "labels": ["Adresse"]},
+    "adresse": {"keys": ["adresse"], "labels": ["Adresse"]},
     "lien_en_ligne": {
-        "keys": ["lien_en_ligne", "lien_enligne", "lien"],
-        "labels": ["Lien en ligne", "Lien (en ligne)", "Lien"],
+        "keys": ["lien_en_ligne"],
+        "labels": ["Lien en ligne (Zoom, Meet)", "Lien en ligne"],
     },
     "lien_paiement": {
-        "keys": ["lien_de_paiement_stripe", "lien_de_paiement", "lien_paiement", "lien_stripe"],
-        "labels": ["Lien de paiement Stripe", "Lien de paiement"],
+        "keys": ["lien_de_paiement_stripe", "lien_de_paiement"],
+        "labels": ["Lien de paiement", "Lien de paiement Stripe"],
     },
-    "contribution": {
-        "keys": ["contribution_suggeree", "contribution"],
-        "labels": ["Contribution suggérée"],
-    },
-    "places_maximum": {"keys": ["places_maximum", "places_max"], "labels": ["Places maximum"]},
-    "places_reservees": {"keys": ["places_reservees"], "labels": ["Places réservées"]},
+    "contribution": {"keys": ["contribution_suggeree"], "labels": ["Contribution suggérée"]},
+    "places_maximum": {"keys": ["places_maximum"], "labels": ["Places maximum"]},
     "places_restantes": {"keys": ["places_restantes"], "labels": ["Places restantes"]},
-    "description": {
-        "keys": ["description_publique", "description"],
-        "labels": ["Description publique", "Description"],
-    },
-    "resume": {"keys": ["resume_court", "resume"], "labels": ["Résumé court", "Résumé"]},
-    "image": {
-        "keys": ["image_principale", "image"],
-        "labels": ["Image principale", "Image"],
-    },
-    "images_extra": {
-        "keys": ["images_additionnelles", "images_supplementaires", "galerie"],
-        "labels": ["Images additionnelles", "Images supplémentaires", "Galerie"],
-    },
-    "categorie": {"keys": ["categorie", "category"], "labels": ["Catégorie"]},
-    "statut": {"keys": ["statut", "status"], "labels": ["Statut"]},
-    "animatrices": {"keys": ["animatrices", "animatrice", "animateurs"], "labels": ["Animatrices"]},
-    "type": {"keys": ["type_devenement", "type_d_evenement", "type_evenement", "type"], "labels": ["Type d'événement"]},
-    "publier": {
-        "keys": ["publier_sur_le_site", "publier_sur_site", "publier"],
-        "labels": ["Publier sur le site"],
-    },
+    "description": {"keys": ["description_publique"], "labels": ["Description publique", "Description"]},
+    "resume": {"keys": ["rsum_court", "resume_court"], "labels": ["Résumé court"]},
+    "image": {"keys": ["image", "image_principale"], "labels": ["Image principale"]},
+    "images_extra": {"keys": ["images_additionnelles"], "labels": ["Images additionnelles"]},
+    "categorie": {"keys": ["categorie"], "labels": ["Catégorie"]},
+    "statut": {"keys": ["statut"], "labels": ["Statut"]},
+    "animatrices": {"keys": ["animatrices"], "labels": ["Animatrices"]},
+    "type": {"keys": ["type_dvnement", "type_devenement", "type_d_evenement"], "labels": ["Type d'événement"]},
+    "publier": {"keys": ["publier_sur_le_site"], "labels": ["Publier sur le site"]},
 }
 
-# Billets : "Billet 1 : nom", "Billet 1 : prix", "Billet 1 : description", etc.
+# Billets : cles reelles (le prix du billet 1 a la cle "bil"), puis repli
+# tolerant sur les cles billet_N_... ou les libelles "Billet N : nom".
+TICKET_FIELDS = {
+    1: {"nom": "billet_1__nom", "prix": "bil", "description": "billet_1__description"},
+    2: {"nom": "billet_2__nom", "prix": "billet_2__prix", "description": "billet_2__description"},
+    3: {"nom": "billet_3__nom", "prix": "billet_3__prix", "description": "billet_3__description"},
+}
+
 TICKET_PARTS = {"nom": ["nom", "name", "titre"], "prix": ["prix", "price", "montant"], "description": ["description", "desc"]}
 
 # Champs internes, jamais publies (documentation : ils ne sont pas lus du tout).
-INTERNAL_FIELDS = ["notes", "responsable", "objectif_de_collecte", "montant_amasse", "places_reservees"]
+INTERNAL_FIELDS = ["notes", "responsable", "objectif_de_collecte", "montant_amass", "places_reservees"]
+# Le lien en ligne (Zoom, Meet) est lu seulement pour savoir si l'activite est en ligne ; il n'est jamais publie.
 
 PUBLIC_STATUTS_EXCLUDED = {"annule", "brouillon"}
 YES_VALUES = {"oui", "yes", "true", "1", "vrai", "o", "y"}
 
 CATEGORY_ALIASES = {
+    "journes_bientre": "journees_bien_etre",
+    "ateliers_cratifs": "ateliers_creatifs",
     "journees_bien_etre": "journees_bien_etre",
     "journee_bien_etre": "journees_bien_etre",
     "ateliers_creatifs": "ateliers_creatifs",
@@ -122,6 +119,8 @@ CATEGORY_ALIASES = {
     "atelier_en_ligne": "ateliers_en_ligne",
 }
 STATUT_ALIASES = {
+    "publi": "publie",
+    "annul": "annule",
     "brouillon": "brouillon",
     "publie": "publie",
     "inscriptions_ouvertes": "publie",
@@ -184,8 +183,8 @@ def api_request(method: str, path: str, token: str, body=None, params: str = "")
     raise SystemExit(f"API injoignable : {path}")
 
 
-def fetch_schema_labels(token: str) -> dict[str, str]:
-    """Retourne {suffixe_normalise: libelle_normalise}. Vide si indisponible."""
+def fetch_schema(token: str) -> tuple[dict[str, str], dict[str, dict[str, str]]]:
+    """Retourne ({suffixe: libelle}, {suffixe: {cle_option: libelle_option}}), normalises."""
     try:
         data = api_request(
             "GET", f"/objects/{OBJECT_KEY}", token,
@@ -193,15 +192,26 @@ def fetch_schema_labels(token: str) -> dict[str, str]:
         )
     except SystemExit as err:
         print(f"Schema non lu ({err}). On continue avec les cles seulement.", file=sys.stderr)
-        return {}
+        return {}, {}
     fields = data.get("fields") or data.get("object", {}).get("fields") or []
-    out = {}
+    return parse_schema(fields)
+
+
+def parse_schema(fields: list) -> tuple[dict[str, str], dict[str, dict[str, str]]]:
+    labels, options = {}, {}
     for f in fields:
         key = str(f.get("fieldKey") or f.get("key") or "")
-        suffix = key.split(".")[-1]
-        if suffix:
-            out[norm(suffix)] = norm(f.get("name") or f.get("label") or "")
-    return out
+        suffix = norm(key.split(".")[-1])
+        if not suffix:
+            continue
+        labels[suffix] = norm(f.get("name") or f.get("label") or "")
+        opts = {}
+        for o in f.get("options") or []:
+            if isinstance(o, dict) and o.get("key") is not None:
+                opts[str(o["key"])] = str(o.get("label") or o["key"])
+        if opts:
+            options[suffix] = opts
+    return labels, options
 
 
 def fetch_records(token: str) -> list[dict]:
@@ -219,12 +229,25 @@ def fetch_records(token: str) -> list[dict]:
         page += 1
         if page > 50:
             break
-    return records
+    # La recherche peut renvoyer les fiches sans leurs proprietes :
+    # on lit alors chaque fiche par son id.
+    full = []
+    for rec in records:
+        if rec.get("properties") or not rec.get("id"):
+            full.append(rec)
+            continue
+        data = api_request(
+            "GET", f"/objects/{OBJECT_KEY}/records/{rec['id']}", token,
+            params=f"?locationId={LOCATION_ID}",
+        )
+        full.append(data.get("record") or data)
+    return full
 
 
 # ---------------------------------------------------------------------------
 class FieldReader:
-    def __init__(self, record: dict, labels: dict[str, str]):
+    def __init__(self, record: dict, labels: dict[str, str], options: dict | None = None):
+        self.options = options or {}
         props = record.get("properties") or {}
         self.values: dict[str, object] = {}
         for k, v in list(props.items()) + [(k, v) for k, v in record.items() if k != "properties"]:
@@ -240,6 +263,20 @@ class FieldReader:
     @staticmethod
     def _has(v) -> bool:
         return v not in (None, "", [], {})
+
+    def option_label(self, logical: str, value) -> str:
+        """Libelle lisible d'une option (cle "marieve" -> "Marie-Ève")."""
+        spec = FIELD_MAP[logical]
+        values = value if isinstance(value, (list, tuple)) else [value]
+        opts = {}
+        for key in spec["keys"]:
+            opts.update(self.options.get(norm(key), {}))
+        out = [opts.get(str(v), clean_text(v)) for v in values if clean_text(v)]
+        return ", ".join(out)
+
+    def option_labels(self, logical: str, value) -> list[str]:
+        values = value if isinstance(value, (list, tuple)) else ([value] if clean_text(value) else [])
+        return [self.option_label(logical, v) for v in values if self.option_label(logical, v)]
 
     def get(self, logical: str):
         spec = FIELD_MAP[logical]
@@ -262,14 +299,21 @@ class FieldReader:
         sources = dict(self.values)
         sources.update({k: v for k, v in self.by_label.items() if k not in sources})
         found: dict[int, dict] = {}
+        for idx, parts in TICKET_FIELDS.items():
+            for name, key in parts.items():
+                v = self.values.get(norm(key))
+                if self._has(v):
+                    found.setdefault(idx, {})[name] = v
         for key, value in sources.items():
+            if key == "bil":
+                continue
             m = re.match(r"^billet_?(\d+)_?(.*)$", key)
             if not m or not self._has(value):
                 continue
             idx, part = int(m.group(1)), m.group(2)
             for name, aliases in TICKET_PARTS.items():
                 if part in aliases or compact(part) in aliases:
-                    found.setdefault(idx, {})[name] = value
+                    found.setdefault(idx, {}).setdefault(name, value)
         out = []
         for idx in sorted(found)[:MAX_TICKETS]:
             t = found[idx]
@@ -424,8 +468,8 @@ def _download_image(url: str, dest_stem: Path, token: str | None) -> str | None:
 
 
 # ---------------------------------------------------------------------------
-def build_event(record: dict, labels: dict[str, str], token: str | None):
-    r = FieldReader(record, labels)
+def build_event(record: dict, labels: dict[str, str], token: str | None, options: dict | None = None):
+    r = FieldReader(record, labels, options)
     if not is_yes(r.get("publier")):
         STATS["non_publie"] += 1
         return None
@@ -442,8 +486,10 @@ def build_event(record: dict, labels: dict[str, str], token: str | None):
         return None
     slug = make_slug(title, date_debut)
 
-    cat_raw = clean_text(r.get("categorie"))
+    cat_value = r.get("categorie")
+    cat_raw = clean_text(cat_value)
     category = CATEGORY_ALIASES.get(norm(cat_raw), norm(cat_raw))
+    cat_label = r.option_label("categorie", cat_value) if cat_raw else ""
 
     img_dir = IMG_DIR / slug
     main_url = (file_urls(r.get("image")) or [None])[0]
@@ -466,8 +512,8 @@ def build_event(record: dict, labels: dict[str, str], token: str | None):
         "slug": slug,
         "title": title,
         "category": category,
-        "categoryLabel": cat_raw,
-        "type": clean_text(r.get("type")),
+        "categoryLabel": cat_label,
+        "type": r.option_label("type", r.get("type")),
         "statut": statut or "publie",
         "dateDebut": date_debut,
         "heureDebut": clean_text(r.get("heure_debut")),
@@ -480,7 +526,7 @@ def build_event(record: dict, labels: dict[str, str], token: str | None):
         "contribution": to_money(r.get("contribution")),
         "placesMaximum": to_count(r.get("places_maximum")),
         "placesRestantes": to_count(r.get("places_restantes")),
-        "animatrices": to_list(r.get("animatrices")),
+        "animatrices": r.option_labels("animatrices", r.get("animatrices")) if isinstance(r.get("animatrices"), list) else to_list(r.get("animatrices")),
         "resume": clean_text(r.get("resume")),
         "description": clean_text(r.get("description")),
         "billets": r.tickets(),
@@ -502,17 +548,20 @@ def main() -> int:
         payload = json.loads(Path(mock).read_text(encoding="utf-8"))
         records = payload.get("records", payload if isinstance(payload, list) else [])
         labels = {norm(k): norm(v) for k, v in (payload.get("labels") or {}).items()} if isinstance(payload, dict) else {}
+        options = {}
+        if isinstance(payload, dict) and payload.get("fields"):
+            labels, options = parse_schema(payload["fields"])
     else:
         if not token:
             print("GHL_FHA_TOKEN absent : rien a synchroniser. data/events.json n'est pas modifie.")
             return 0
-        labels = fetch_schema_labels(token)
+        labels, options = fetch_schema(token)
         records = fetch_records(token)
     print(f"{len(records)} enregistrement(s) lu(s).")
 
     events, slugs = [], set()
     for rec in records:
-        ev = build_event(rec, labels, token or None)
+        ev = build_event(rec, labels, token or None, options)
         if not ev:
             continue
         base, n = ev["slug"], 2
