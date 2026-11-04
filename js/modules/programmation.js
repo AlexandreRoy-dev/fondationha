@@ -54,7 +54,9 @@ export async function initProgrammation() {
     if (events.length === 0) {
       emptyEl.textContent = "La prochaine programmation sera annoncée bientôt. Revenez nous voir.";
       statusEl.textContent = "";
-      filtersEl.hidden = true;
+      filtersEl.style.display = "none";
+      const filtersLabel = root.querySelector(".prog-filters__label");
+      if (filtersLabel) filtersLabel.style.display = "none";
       return;
     }
     statusEl.textContent = countLabel(visible.length);
