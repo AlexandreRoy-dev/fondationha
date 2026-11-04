@@ -39,6 +39,8 @@ API = "https://services.leadconnectorhq.com"
 API_VERSION = "2021-07-28"
 LOCATION_ID = os.environ.get("GHL_LOCATION_ID", "vytdZ9CJafKxgnpVRP9U")
 OBJECT_KEY = os.environ.get("GHL_OBJECT_KEY", "custom_objects.programmations")
+# Cloudflare (erreur 1010) refuse la signature par defaut de Python-urllib.
+USER_AGENT = "Mozilla/5.0 (compatible; fha-events-sync/1.0; +https://fondationha.com)"
 PAGE_LIMIT = 100
 MAX_EXTRA_IMAGES = 3
 MAX_IMAGE_BYTES = 12 * 1024 * 1024
@@ -163,6 +165,7 @@ def api_request(method: str, path: str, token: str, body=None, params: str = "")
     req.add_header("Authorization", f"Bearer {token}")
     req.add_header("Version", API_VERSION)
     req.add_header("Accept", "application/json")
+    req.add_header("User-Agent", USER_AGENT)
     if data is not None:
         req.add_header("Content-Type", "application/json")
     for attempt in range(4):
@@ -387,7 +390,7 @@ def _download_image(url: str, dest_stem: Path, token: str | None) -> str | None:
     if os.environ.get("SKIP_IMAGES") == "1":
         return None
     for auth in (False, True):
-        req = urllib.request.Request(url, headers={"User-Agent": "fha-events-sync/1.0"})
+        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
         if auth and token:
             req.add_header("Authorization", f"Bearer {token}")
             req.add_header("Version", API_VERSION)
