@@ -14,7 +14,12 @@
  * lit chaque suffixe du spec. Un champ absent sur l'enregistrement
  * reste vide. Rien n'est inventé pour le remplacer.
  *
- * Intégration prévue, sans appel depuis le navigateur.
+ * Intégration : scripts/sync_events.py (GitHub Action quotidienne)
+ * lit les enregistrements avec un jeton gardé en secret du dépôt
+ * (GHL_FHA_TOKEN) et écrit data/events.json. loadProgrammation()
+ * lit ce fichier. Sans fichier, les fiches d'exemple restent affichées.
+ *
+ * Note d'origine : intégration sans appel depuis le navigateur.
  * La clé Private Integration est en lecture seule et ne doit jamais
  * être exposée côté client (aucun jeton dans ce fichier).
  * Chemin : un proxy serveur ou une fonction serverless, ou un export
@@ -75,6 +80,7 @@ const CATEGORY_ALIASES = {
   journees_bien_etre: "journees_bien_etre",
   "journées bien-être": "journees_bien_etre",
   "journees bien-etre": "journees_bien_etre",
+  "journée bien-être": "journees_bien_etre",
   ateliers_creatifs: "ateliers_creatifs",
   "ateliers créatifs": "ateliers_creatifs",
   "ateliers creatifs": "ateliers_creatifs",
@@ -173,6 +179,7 @@ export function mapProgrammationRecord(record) {
 
   return {
     id: String(source.id || ""),
+    slug: String(source.id || ""),
     example: source.example === true,
     title: text(readField(source, "nom")),
     category: categorie,
@@ -193,18 +200,99 @@ export function mapProgrammationRecord(record) {
     notes: text(readField(source, "notes")),
     description: text(readField(source, "description")),
     image: imageFromField(readField(source, "image_principale")),
+    categoryLabel: "",
+    type: "",
+    enLigne: Boolean(lienEnLigne),
+    adresse: "",
+    resume: "",
+    billets: [],
+    gallery: [],
   };
 }
 
+/** Fichier écrit par scripts/sync_events.py (GitHub Action quotidienne). */
+export const EVENTS_JSON_URL = "data/events.json";
+
+const EXCLUDED_STATUTS = new Set(["brouillon", "annule"]);
+
+let cache = null;
+
 /**
- * Point d'entrée de la page. Pas d'appel réseau.
- * TODO(crm): remplacer SAMPLE_RECORDS par la réponse du proxy
- * ou de l'export de build, puis mapper.
+ * Point d'entrée des pages Programmation et Événement.
+ * Lit data/events.json (déjà filtré et nettoyé par le script de synchro).
+ * Si le fichier est absent ou illisible, on garde les fiches d'exemple.
+ *
+ * @returns {Promise<{events: object[], fromSync: boolean}>}
  */
+export function loadProgrammation() {
+  if (!cache) {
+    cache = fetch(EVENTS_JSON_URL, { cache: "no-cache" })
+      .then((response) => (response.ok ? response.json() : null))
+      .catch(() => null)
+      .then((payload) => {
+        const list = payload && Array.isArray(payload.events) ? payload.events : null;
+        if (list) {
+          return {
+            fromSync: true,
+            events: list
+              .map(normalizeSyncedEvent)
+              .filter((event) => event.title && !EXCLUDED_STATUTS.has(event.statut)),
+          };
+        }
+        return { fromSync: false, events: fetchProgrammation() };
+      });
+  }
+  return cache;
+}
+
+/** Fiches d'exemple, sans appel réseau (repli). */
 export function fetchProgrammation() {
   return SAMPLE_RECORDS.map(mapProgrammationRecord).filter((event) =>
     PUBLIC_STATUTS.has(event.statut)
   );
+}
+
+/** Normalise une fiche de data/events.json vers la forme utilisée par l'affichage. */
+export function normalizeSyncedEvent(raw) {
+  const source = raw || {};
+  const dateDebut = text(source.dateDebut);
+  const heureDebut = text(source.heureDebut);
+  const categoryRaw = text(source.category).toLowerCase();
+  const category = CATEGORY_ALIASES[categoryRaw] || CATEGORY_ALIASES[text(source.categoryLabel).toLowerCase()] || categoryRaw;
+  return {
+    id: text(source.id),
+    slug: text(source.slug),
+    example: false,
+    title: text(source.title),
+    category,
+    categoryLabel: text(source.categoryLabel),
+    type: text(source.type),
+    dateDebut,
+    heureDebut,
+    dateFin: text(source.dateFin),
+    heureFin: text(source.heureFin),
+    sortKey: sortKey(dateDebut, heureDebut),
+    animatrices: toList(source.animatrices),
+    enLigne: source.enLigne === true,
+    lieu: text(source.lieu),
+    adresse: text(source.adresse),
+    contribution: toMoney(source.contribution),
+    placesMaximum: toCount(source.placesMaximum),
+    placesRestantes: toCount(source.placesRestantes),
+    ticketUrl: text(source.ticketUrl) || "#",
+    statut: normalizeStatut(source.statut) || text(source.statut).toLowerCase() || "publie",
+    resume: text(source.resume),
+    description: text(source.description),
+    billets: Array.isArray(source.billets)
+      ? source.billets
+          .map((b) => ({ nom: text(b && b.nom), prix: toMoney(b && b.prix), description: text(b && b.description) }))
+          .filter((b) => b.nom || b.prix != null)
+      : [],
+    image: imageFromField(source.image),
+    gallery: Array.isArray(source.gallery)
+      ? source.gallery.map(imageFromField).filter(Boolean).slice(0, 3)
+      : [],
+  };
 }
 
 function sampleRecord(id, values) {
