@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/styles.css?v=20261008a">
+  <link rel="stylesheet" href="css/styles.css?v=20261109a">
 </head>
 <body data-page="accueil">
   <a class="sr-only" href="#contenu">Aller au contenu</a>
@@ -52,6 +52,7 @@
           <li><a href="conseil.html" data-page="conseil">Conseil</a></li>
           <li><a href="ambassadeurs.html" data-page="ambassadeurs">Ambassadeurs</a></li>
           <li><a href="partenaires.html" data-page="partenaires">Partenaires</a></li>
+          <li><a href="evenements.html" data-page="evenements">Événements</a></li>
           <li><a class="nav-link--dons" href="dons.html" data-page="dons">Dons</a></li>
         </ul>
         <div class="site-nav__cta">
@@ -260,6 +261,25 @@
       </div>
     </section>
 
+    <section class="section" id="evenements" aria-labelledby="evenements-title">
+      <div class="container events-teaser">
+        <div class="reveal">
+          <span class="section__label">Événements</span>
+          <h2 class="section__title" id="evenements-title">Activités à venir</h2>
+          <a class="events-teaser__more" href="evenements.html">Voir les événements</a>
+        </div>
+        <div data-events-root data-events-limit="2">
+          <div class="events-empty reveal" data-events-empty>
+            <p>Aucune activité à venir pour le moment. Suivez-nous sur Facebook.</p>
+            <div class="btn-row">
+              <a class="btn btn--primary" href="https://www.facebook.com/profile.php?id=61590563364527" target="_blank" rel="noopener noreferrer">Suivre sur Facebook</a>
+            </div>
+          </div>
+          <ul class="events-list" data-events-list hidden></ul>
+        </div>
+      </div>
+    </section>
+
     <!-- À propos -->
     <section class="section" id="a-propos" aria-labelledby="apropos-title">
       <div class="container">
@@ -398,6 +418,7 @@
             <li><a href="conseil.html">Conseil d’administration</a></li>
             <li><a href="ambassadeurs.html">Ambassadeurs</a></li>
             <li><a href="partenaires.html">Partenaires</a></li>
+            <li><a href="evenements.html">Événements</a></li>
             <li><a href="dons.html">Contribuer</a></li>
           </ul>
         </div>
@@ -420,7 +441,7 @@
     </div>
   </footer>
 
-  <script type="module" src="js/main.js?v=20260825c"></script>
+  <script type="module" src="js/main.js?v=20261109a"></script>
   <script>
     document.getElementById("year").textContent = String(new Date().getFullYear());
   </script>
