@@ -1,0 +1,39 @@
+name: Synchroniser la programmation
+
+on:
+  schedule:
+    - cron: "30 10 * * *"   # tous les jours vers 5 h 30 (hiver) ou 6 h 30 (été), heure de Toronto
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-events
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Lire GoHighLevel et écrire data/events.json
+        env:
+          GHL_FHA_TOKEN: ${{ secrets.GHL_FHA_TOKEN }}
+          GHL_LOCATION_ID: ${{ vars.GHL_FHA_LOCATION_ID || 'vytdZ9CJafKxgnpVRP9U' }}
+          GHL_OBJECT_KEY: ${{ vars.GHL_OBJECT_KEY || 'custom_objects.programmations' }}
+        run: python scripts/sync_events.py
+      - name: Commit si changement
+        run: |
+          if [ -n "$(git status --porcelain data/ assets/images/events/)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+            git add -A data/ assets/images/events/
+            git commit -m "Mise à jour automatique de la programmation"
+            git push
+          else
+            echo "Aucun changement"
+          fi
