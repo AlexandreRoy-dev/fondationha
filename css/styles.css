@@ -437,6 +437,29 @@ ul {
   height: 100dvh;
 }
 
+/* Keep the logo and the close button in the top bar.
+   The open header grows to the viewport, and the inner row was
+   centering those controls behind the menu. */
+@media (max-width: 959px) {
+  .site-header.is-nav-open .site-header__inner {
+    align-items: flex-start;
+  }
+
+  .site-header.is-nav-open .logo,
+  .site-header.is-nav-open .nav-toggle {
+    position: relative;
+    z-index: 5;
+  }
+
+  .site-header.is-nav-open .logo {
+    margin-top: calc((var(--header-h) - 4.25rem) / 2);
+  }
+
+  .site-header.is-nav-open .nav-toggle {
+    margin-top: calc((var(--header-h) - 2.75rem) / 2);
+  }
+}
+
 .site-nav {
   position: absolute;
   top: var(--header-h);
@@ -1394,12 +1417,113 @@ ul {
   max-width: min(17rem, 82vw);
 }
 
-@media (min-width: 960px) and (max-width: 1120px) {
+/* Événements */
+.events-teaser {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+#evenements {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.events-teaser .section__title {
+  max-width: 16em;
+}
+
+.events-teaser__more {
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--vert-fonce);
+  text-decoration: none;
+}
+
+.events-teaser__more:hover {
+  color: var(--vert-sauge);
+}
+
+.events-empty {
+  max-width: 40rem;
+  background: var(--blanc);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+}
+
+.events-empty p {
+  color: var(--color-text-muted);
+  max-width: 36rem;
+  margin-bottom: var(--space-5);
+}
+
+.events-list {
+  list-style: none;
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  max-width: 40rem;
+}
+
+.event-card {
+  background: var(--blanc);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+}
+
+.event-card__date {
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--vert-sauge);
+  margin-bottom: var(--space-3);
+}
+
+.event-card h3 {
+  font-size: var(--fs-xl);
+  margin-bottom: var(--space-3);
+}
+
+.event-card__meta,
+.event-card__resume {
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.event-card__resume {
+  margin-top: var(--space-3);
+}
+
+.event-card__link {
+  margin-top: var(--space-5);
+}
+
+@media (min-width: 800px) {
+  .events-teaser {
+    gap: var(--space-5);
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1280px) {
+  .logo img {
+    height: 3.4rem;
+  }
+
   .site-nav__list {
-    gap: 0.4rem 0.55rem;
+    gap: 0.2rem 0.4rem;
   }
 
   .site-nav a {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+  }
+
+  .header-actions .btn {
+    padding: 0.45rem 0.7rem;
   }
 }
