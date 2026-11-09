@@ -1,0 +1,37 @@
+{
+  "source": "custom_objects.programmations",
+  "count": 1,
+  "events": [
+    {
+      "id": "6af0ce037aa00140c4e95436",
+      "slug": "meditation-pre-lancement-2026-11-20",
+      "title": "Méditation pré-lancement",
+      "category": "ateliers_en_ligne",
+      "categoryLabel": "Ateliers en ligne",
+      "type": "Activité communautaire",
+      "statut": "publie",
+      "dateDebut": "2026-11-20",
+      "heureDebut": "11h30",
+      "dateFin": "2026-11-20",
+      "heureFin": "",
+      "lieu": "En ligne",
+      "adresse": "",
+      "enLigne": true,
+      "ticketUrl": "",
+      "contribution": null,
+      "placesMaximum": null,
+      "placesRestantes": null,
+      "animatrices": [
+        "Dominique"
+      ],
+      "resume": "Nous vous invitons à une première activité avec la fondatrice Dominique St-Jean. \n\nUne courte méditation sera offerte gratuitement.\n\nVeuillez seulement vous enregistré pour recevoir le lien de connexion.\n\nUn doux moment pour vous déposer. \n\nÀ bientôt.",
+      "description": "Nous vous invitons à une première activité avec la fondatrice Dominique St-Jean. \n\nUne courte méditation sera offerte gratuitement.\n\nVeuillez seulement vous enregistré pour recevoir le lien de connexion.\n\nPrévoyez un espace calme et des écouteurs. \n\nUn doux moment pour vous déposer. \n\nÀ bientôt.",
+      "billets": [],
+      "image": {
+        "src": "assets/images/events/meditation-pre-lancement-2026-11-20/principale.jpg",
+        "alt": "Méditation pré-lancement"
+      },
+      "gallery": []
+    }
+  ]
+}
